@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Dfinity Websocket Client</title>
+</head>
+ <script type = "text/javascript">
+         var ws;
+         function webSocketTest() {
+            if ("WebSocket" in window) {
+               document.getElementById("title").innerHTML = "WebSocket is supported by your Browser!";
+               ws = new WebSocket("ws://localhost:8080/websocket/board");
+               ws.onopen = function() {
+                  document.getElementById("result").innerHTML += "<p>WebSocket openned</p>";
+               };
+               ws.onmessage = function (evt) { 
+                  var received_msg = evt.data;
+                  
+                  var json = JSON.parse(received_msg);
+                  document.getElementById("result").innerHTML += "<p>Message is received: " + escapeHtml(json.message) + "</p>";
+               };
+               ws.onclose = function() { 
+                  document.getElementById("result").innerHTML += "<p>WebSocket is closed</p>";
+               };
+            } else {
+               document.getElementById("title").innerHTML = "WebSocket NOT supported by your Browser!";
+            }
+         }
+         function sendMessageWebsocket(message){
+            ws.send(message);
+            document.getElementById("result").innerHTML += "<p>Message sent to WebSocket: " + escapeHtml(message) + "</p>";
+         }
+         function getNameRest(){
+             var xhttp = new XMLHttpRequest();
+             xhttp.open("GET", "/rest/peek", true);
+             xhttp.setRequestHeader("Content-type", "application/json");          
+             
+             xhttp.onreadystatechange = function () {
+            	    if (xhttp.readyState === 4 && xhttp.status === 200) {
+            	        var json = JSON.parse(xhttp.responseText);
+            	        document.getElementById("result").innerHTML += "<p>Name is: " + escapeHtml(json.name) + "</p>";
+            	    }
+            	};
+            xhttp.send();
+            	
+        }         
+         function sendMessageRest(name){
+              var xhttp = new XMLHttpRequest();
+              xhttp.open("POST", "/rest/greet", true);
+              xhttp.setRequestHeader("Content-type", "application/json");
+              var data = JSON.stringify({"name": name});
+              xhttp.send(data);             
+              
+              document.getElementById("result").innerHTML += "<p>Message sent to Rest: " + escapeHtml(name) + "</p>";
+         }
+         function escapeHtml(unsafe) {
+              return unsafe
+                 .replace(/&/g, "&amp;")
+                 .replace(/</g, "&lt;")
+                 .replace(/>/g, "&gt;")
+                 .replace(/"/g, "&quot;")
+                 .replace(/'/g, "&#039;");
+         }
+      </script>
+        
+   </head>
+   
+   <body onload="webSocketTest()">
+      <h1 id="title"></h1>
+      <div>
+         <p>
+                      <p>
+                 <button onclick="getNameRest()">Query Name from Dfinity</button>
+             </p>
+             <p>
+                 <input type="text" id="message" value="world"/><button onclick="sendMessageRest(document.getElementById('message').value)">Send Message to Dfinity</button>
+             </p>
+             <p>
+                 <button onclick="sendMessageWebsocket('SEND')">Send to Websocket</button>
+             </p>
+         </p>
+         <h2>History</h1>
+         <div id="result"></div>
+      </div>
+   </body>
+</html>

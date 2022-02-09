@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Hello World</string>
+    <string name="edit_message">Enter a message</string>
+    <string name="button_send">Send</string>
+    <string name="url">https://m7sm4-2iaaa-aaaab-qabra-cai.raw.ic0.app</string>
+    <string name="canister">xgktx-viaaa-aaaab-qadda-cai</string>
+</resources>

@@ -1,0 +1,10 @@
+server:
+  port: 8082
+  host: 0.0.0.0
+
+dfinity:
+   canister: xgktx-viaaa-aaaab-qadda-cai  
+   url: https://m7sm4-2iaaa-aaaab-qabra-cai.raw.ic0.app/
+   
+   #canister: rrkah-fqaaa-aaaaa-aaaaq-cai  
+   #url: http://localhost:8000/   
