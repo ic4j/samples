@@ -1,11 +1,11 @@
-# DfinityAndroidSample
+# IC4JAndroidSample
 # Android Native App connecting to the Internet Computer
 
 Nothing fancy, just HelloWorld native Android application calling query and update on the Internet Computer. 
-This application is using The Internet Computer Java Agent open source package
+This application is using IC4J The Internet Computer Java Agent open source package
 
-<a href="https://github.com/rdobrik/dfinity-agent">
-https://github.com/rdobrik/dfinity-agent
+<a href="https://github.com/ic4j/ic4j-agent">
+https://github.com/ic4j/ic4j-agent
 </a>
 
 The code is in MainActivity.kt file, demonstrates how to create HTTP Transport, set arguments, call both query and update operations.
@@ -17,7 +17,8 @@ This is how you add Java Agent modules to your code (from Maven Central)
 
 ```
     implementation 'commons-codec:commons-codec:1.15'
-    implementation('com.scaleton.dfinity:dfinity-agent:0.5.5') {
+    implementation 'org.ic4j:ic4j-candid:0.6.4'
+    implementation('org.ic4j:ic4j-agent:0.6.4') {
         exclude group: 'org.apache.httpcomponents.client5', module: 'httpclient5'
     }
 ```
