@@ -2,12 +2,12 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.ic4j.samples</groupId>
   <artifactId>ic4j-json-gson</artifactId>
-  <version>0.6.5</version>
+  <version>0.6.6</version>
   <name>IC4JGsonSample</name>
   <description>This sample is demonstrating how to use the IC with Java Gson JSON</description>
   
 <properties>
-		<ic4j.agent.version>0.6.5</ic4j.agent.version>
+		<ic4j.agent.version>0.6.6</ic4j.agent.version>
 		<slf4j.version>1.7.32</slf4j.version>
 		<mainClass>org.ic4j.samples.gson.Main</mainClass>
 		<maven.compiler.source>11</maven.compiler.source>
@@ -54,10 +54,10 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<sourceDirectory>src</sourceDirectory>
+		<sourceDirectory>src/main</sourceDirectory>
 		<resources>
 			<resource>
-				<directory>resources</directory>
+				<directory>src/resources</directory>
 			</resource>
 		</resources>
         <pluginManagement>

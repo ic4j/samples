@@ -4,10 +4,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ic4j.samples</groupId>
 	<artifactId>ic4j-webservices</artifactId>
-	<version>0.6.5</version>
+	<version>0.6.6</version>
 
 	<properties>
-		<ic4j.agent.version>0.6.5</ic4j.agent.version>
+		<ic4j.agent.version>0.6.6</ic4j.agent.version>
 		<helidon.version>2.3.2</helidon.version>
 		<mainClass>org.ic4j.samples.ws.Server</mainClass>
 		<maven.compiler.source>11</maven.compiler.source>
