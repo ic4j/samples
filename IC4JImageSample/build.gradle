@@ -34,7 +34,7 @@ jar {
 
 task fatJar(type: Jar) {
     manifest {
-        attributes('Implementation-Title': 'ic4j-sample-java17',
+        attributes('Implementation-Title': 'ic4j-sample-image',
                    'Implementation-Version': project.version, 'Main-Class': 'org.ic4j.samples.image.Main')
     }
     
