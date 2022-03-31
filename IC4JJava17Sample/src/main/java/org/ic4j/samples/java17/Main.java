@@ -31,6 +31,7 @@ public class Main {
 	static String PROPERTIES_FILE_NAME = "application.properties";
 
     static Logger LOG = LoggerFactory.getLogger(Main.class);
+    
 	public static void main(String[] args) {
 		try {
 		InputStream propInputStream = Main.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE_NAME);
@@ -72,8 +73,11 @@ public class Main {
 		CompletableFuture<byte[]> response = UpdateBuilder.create(agent,Principal.fromString(icCanister), "apply").arg(buf).callAndWait(Waiter.create(60, 5));
 		
 		byte[] output = response.get();
-		LoanOffer jsonResult = IDLArgs.fromBytes(output).getArgs().get(0)
+		LoanOffer loanOffer = IDLArgs.fromBytes(output).getArgs().get(0)
 				.getValue(PojoDeserializer.create(), LoanOffer.class);
+		
+		
+		LOG.info("Loan Offer APR is " + loanOffer.apr);
 		
 		} catch (Throwable e) {
 			LOG.error(e.getLocalizedMessage(), e);

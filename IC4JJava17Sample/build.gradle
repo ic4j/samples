@@ -12,12 +12,11 @@ plugins {
 
 
 group 'org.ic4j'
-version '0.6.5'
+version '0.6.6'
 
 sourceCompatibility = 17
 
 repositories {
-    mavenLocal()
     mavenCentral()
 }
 
@@ -26,34 +25,47 @@ jar {
         attributes('Implementation-Title': 'ic4j-sample-java17',
                    'Implementation-Version': project.version, 'Main-Class': 'org.ic4j.samples.java17.Main')
 
-                   attributes 
     }
     
     archiveBaseName = 'ic4j-demo-java17'
-}
-
-task fatJar(type: Jar) {
-    manifest {
-        attributes('Implementation-Title': 'ic4j-sample-java17',
-                   'Implementation-Version': project.version, 'Main-Class': 'org.ic4j.samples.java17.Main')
+    
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE) 
+    
+    from {
+        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
     
-    archiveBaseName = 'ic4j-sample-java17-with-dependencies'
-    
-    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
-configurations.all {
-	exclude group: 'org.apache.httpcomponents.client5', module: 'httpclient5'
-    exclude group: 'com.squareup.okhttp3', module: 'okhttp3'
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'     
 }
 
 
 dependencies {
-	implementation group: 'org.ic4j', name: 'ic4j-candid', version: '0.6.5'
-	implementation group: 'org.ic4j', name: 'ic4j-agent', version: '0.6.5'
-	implementation group: 'org.ic4j', name: 'ic4j-java11transport', version: '0.6.5'		
+	implementation group: 'org.ic4j', name: 'ic4j-candid', version: '0.6.6'
+	implementation group: 'org.ic4j', name: 'ic4j-agent', version: '0.6.6'
+	implementation group: 'org.ic4j', name: 'ic4j-java11transport', version: '0.6.5'
+	
+	implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.32'		
+	
+	// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+	
+	// https://mvnrepository.com/artifact/commons-codec/commons-codec
+	implementation group: 'commons-codec', name: 'commons-codec', version: '1.15'
+		
+	// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.1'
+	
+	// https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jdk8
+	implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.13.1'
+	
+	// https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-cbor
+	implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-cbor', version: '2.13.1'	
+	
+	// https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on
+	implementation group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.70'
+
+	// https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk15on
+	implementation group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.70'			
 }
 
 
