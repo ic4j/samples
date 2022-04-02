@@ -1,13 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.ic4j.samples</groupId>
-  <artifactId>ic4j-json-jackson</artifactId>
-  <version>0.6.6</version>
+  <groupId>org.ic4j</groupId>
+  <artifactId>ic4j-sample-json-jackson</artifactId>
+  <version>0.6.7</version>
   <name>IC4JJacksonSample</name>
   <description>This sample is demonstrating how to use the IC with Java Jackson JSON</description>
   
 <properties>
-		<ic4j.agent.version>0.6.6</ic4j.agent.version>
+		<ic4j.agent.version>0.6.7</ic4j.agent.version>
+		<ic4j.candid.version>0.6.6</ic4j.candid.version>
 		<slf4j.version>1.7.32</slf4j.version>
 		<mainClass>org.ic4j.samples.jackson.Main</mainClass>
 		<maven.compiler.source>11</maven.compiler.source>
@@ -30,12 +31,16 @@
                 <artifactId>okhttp</artifactId>
             </exclusion>
         </exclusions>
-
+		</dependency>
+		<dependency>
+			<groupId>org.ic4j</groupId>
+			<artifactId>ic4j-java11transport</artifactId>
+			<version>${ic4j.agent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.ic4j</groupId>
 			<artifactId>ic4j-candid</artifactId>
-			<version>${ic4j.agent.version}</version>
+			<version>${ic4j.candid.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>

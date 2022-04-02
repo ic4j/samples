@@ -12,14 +12,13 @@ import java.util.concurrent.CompletableFuture;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 
 import org.ic4j.agent.Agent;
 import org.ic4j.agent.AgentBuilder;
 import org.ic4j.agent.ReplicaTransport;
 import org.ic4j.agent.UpdateBuilder;
 import org.ic4j.agent.Waiter;
-import org.ic4j.agent.http.ReplicaApacheHttpTransport;
+import org.ic4j.agent.http.ReplicaJavaHttpTransport;
 import org.ic4j.candid.dom.DOMDeserializer;
 import org.ic4j.candid.dom.DOMSerializer;
 import org.ic4j.candid.dom.DOMUtils;
@@ -58,7 +57,7 @@ public class Main {
 		String icLocation = env.getProperty("ic.location");
 		String icCanister = env.getProperty("ic.canister");
 
-		ReplicaTransport transport = ReplicaApacheHttpTransport.create(icLocation);
+		ReplicaTransport transport = ReplicaJavaHttpTransport.create(icLocation);
 		Agent agent = new AgentBuilder().transport(transport).build();
 		
 		Map<Label,IDLType> offerRecord = new TreeMap<Label,IDLType>();
@@ -101,7 +100,8 @@ public class Main {
 		// parse XML file
 		DocumentBuilder db = dbf.newDocumentBuilder();
 
-		Document doc = db.parse(Main.class.getClassLoader().getResource(fileName).getFile());
+		InputStream sourceInputStream = Main.class.getClassLoader().getResourceAsStream(fileName);
+		Document doc = db.parse(sourceInputStream);
 
 		return doc.getDocumentElement();
 	}

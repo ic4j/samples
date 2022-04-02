@@ -2,8 +2,6 @@ package org.ic4j.samples.jackson;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +14,7 @@ import org.ic4j.agent.AgentBuilder;
 import org.ic4j.agent.ReplicaTransport;
 import org.ic4j.agent.UpdateBuilder;
 import org.ic4j.agent.Waiter;
-import org.ic4j.agent.http.ReplicaApacheHttpTransport;
+import org.ic4j.agent.http.ReplicaJavaHttpTransport;
 import org.ic4j.candid.jackson.JacksonDeserializer;
 import org.ic4j.candid.jackson.JacksonSerializer;
 import org.ic4j.candid.parser.IDLArgs;
@@ -50,7 +48,7 @@ public class Main {
 		String icLocation = env.getProperty("ic.location");
 		String icCanister = env.getProperty("ic.canister");
 
-		ReplicaTransport transport = ReplicaApacheHttpTransport.create(icLocation);
+		ReplicaTransport transport = ReplicaJavaHttpTransport.create(icLocation);
 		Agent agent = new AgentBuilder().transport(transport).build();
 		
 		Map<Label,IDLType> applicationRecord = new TreeMap<Label,IDLType>();
@@ -100,7 +98,9 @@ public class Main {
 	}
 	
 	static JsonNode readNode(String fileName) throws JsonProcessingException, IOException {
-		byte[] input = Files.readAllBytes(Paths.get(Main.class.getClassLoader().getResource(fileName).getPath()));
+		InputStream sourceInputStream = Main.class.getClassLoader().getResourceAsStream(fileName);
+		
+		byte[] input = sourceInputStream.readAllBytes();
 
 		JsonNode rootNode = (JsonNode) mapper.readTree(input);
 
