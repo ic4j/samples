@@ -1,4 +1,4 @@
-## IC4JyWSSample
+## IC4JWSSample
 ##Java WS connecting to the Internet Computer
 
 This sample demonstrates how to use IC4J Java Agent to create Java Web Service using Oracle Helidon SE package. 
@@ -20,7 +20,7 @@ mvn package
 to build Java project and then run: 
 
 ```bash
-java -jar target/ic4j-webservices-0.6.5.jar
+java -jar target/ic4j-webservices-0.6.6.jar
 ```
 
 to start Java Web Service (with Java 11)
