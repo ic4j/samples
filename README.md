@@ -7,6 +7,9 @@ Java sample demonstrating call to Dfinity HelloWorld Dapp.
 [IC4JHelloWorldAdvanced](IC4JHelloWorldAdvanced)
 Advanced version of HelloWorld sample. Added Identity and QUERY call.
 
+[IC4JIdentitySample](IC4JIdentitySample)
+Java sample using different Identity mechanisms.
+
 [IC4JPojoSample](IC4JPojoSample)
 Java sample demonstrating POJO object serialization and deserialization to/from Candid Record type.
 
