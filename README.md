@@ -22,6 +22,9 @@ Java sample demonstrating XML DOM object serialization and deserialization to/fr
 [IC4JImageSample](IC4JJImageSample)
 Java sample demonstrating byte array binary (png) object serialization and deserialzation to Candid Nat8 vector type.
 
+[IC4JJDBCSample](IC4JJCBCSample)
+Java sample demonstrating JDBC ResultSet object serialization to Candid Record type.
+
 [IC4JJava17Sample](IC4JJava17Sample)
 Java JDK 17 sample demonstrating use of ReplicaTransport based on Java 11 HTTP Client API.
 
