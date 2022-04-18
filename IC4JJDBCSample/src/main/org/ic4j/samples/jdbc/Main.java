@@ -81,15 +81,13 @@ public class Main {
 			ReplicaTransport transport = ReplicaJavaHttpTransport.create(icLocation);
 			Agent agent = new AgentBuilder().transport(transport).build();
 
-			CompletableFuture<byte[]> response;
-
 			IDLValue idlValue = IDLValue.create(result, JDBCSerializer.create().array(false));
 			List<IDLValue> idlArgs = new ArrayList<IDLValue>();
 			idlArgs.add(idlValue);
 
 			byte[] buf = IDLArgs.create(idlArgs).toBytes();
 
-			response = UpdateBuilder.create(agent, Principal.fromString(icCanister), "setCredit").arg(buf)
+			CompletableFuture<byte[]> response = UpdateBuilder.create(agent, Principal.fromString(icCanister), "setCredit").arg(buf)
 					.callAndWait(Waiter.create(60, 5));
 
 			byte[] output = response.get();

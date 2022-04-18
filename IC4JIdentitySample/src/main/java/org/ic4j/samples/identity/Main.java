@@ -2,8 +2,7 @@ package org.ic4j.samples.identity;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.Reader;
 import java.security.Security;
 import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
@@ -42,7 +41,7 @@ public class Main {
 			String icLocation = env.getProperty("ic.location");
 			String icCanister = env.getProperty("ic.canister");
 
-			// Use Inonymous Identity
+			// Use Anonymous Identity
 			Identity identity = new AnonymousIdentity();
 
 			ReplicaTransport transport = ReplicaApacheHttpTransport.create(icLocation);
@@ -58,11 +57,10 @@ public class Main {
 			String output = proxyResponse.get();
 			LOG.info(output);
 
-			// Use Basic Identity (ED25519)
-			
-			InputStream sourceInputStream = Main.class.getClassLoader().getResourceAsStream(ED25519_IDENTITY_FILE);
+			// Use Basic Identity (ED25519)		
+			Reader sourceReader = new InputStreamReader(Main.class.getClassLoader().getResourceAsStream(ED25519_IDENTITY_FILE));
 
-			identity = BasicIdentity.fromPEMFile(new InputStreamReader(sourceInputStream));
+			identity = BasicIdentity.fromPEMFile(sourceReader);
 			
 			agent = new AgentBuilder().transport(transport).identity(identity).build();
 			
@@ -77,10 +75,9 @@ public class Main {
 			LOG.info(output);
 			
 			// Use Secp256k1 Identity
-			sourceInputStream = Main.class.getClassLoader().getResourceAsStream(SECP256K1_IDENTITY_FILE);
+			sourceReader =new InputStreamReader(Main.class.getClassLoader().getResourceAsStream(SECP256K1_IDENTITY_FILE));
 
-
-			identity = Secp256k1Identity.fromPEMFile(new InputStreamReader(sourceInputStream));
+			identity = Secp256k1Identity.fromPEMFile(sourceReader);
 			
 			agent = new AgentBuilder().transport(transport).identity(identity).build();
 			
