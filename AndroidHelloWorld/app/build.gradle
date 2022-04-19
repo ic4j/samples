@@ -11,7 +11,7 @@ android {
         minSdk 27
         targetSdk 31
         versionCode 1
-        versionName "0.6.6"
+        versionName "0.6.8"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -37,11 +37,11 @@ dependencies {
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
     implementation 'commons-codec:commons-codec:1.15'
-    implementation 'org.ic4j:ic4j-candid:0.6.6'
-    implementation('org.ic4j:ic4j-agent:0.6.6') {
+    implementation 'org.ic4j:ic4j-candid:0.6.8'
+    implementation('org.ic4j:ic4j-agent:0.6.8') {
         exclude group: 'org.apache.httpcomponents.client5', module: 'httpclient5'
     }
-    implementation 'org.slf4j:slf4j-api:1.7.32'
+    implementation 'org.slf4j:slf4j-api:1.7.36'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
