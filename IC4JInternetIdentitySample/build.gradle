@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'org.ic4j'
-version '0.6.8'
+version '0.6.11'
 
 sourceCompatibility = 1.8
 
@@ -13,11 +13,11 @@ repositories {
 
 jar {
     manifest {
-        attributes('Implementation-Title': 'ic4j-sample-identity',
-                   'Implementation-Version': project.version, 'Main-Class': 'org.ic4j.samples.identity.Main')
+        attributes('Implementation-Title': 'ic4j-sample-internetidentity',
+                   'Implementation-Version': project.version, 'Main-Class': 'org.ic4j.samples.internetidentity.Main')
     }
     
-    archiveBaseName = 'ic4j-sample-identity'
+    archiveBaseName = 'ic4j-sample-internetidentity'
 
     from {
         configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
@@ -31,10 +31,11 @@ jar {
 
 dependencies {
 	implementation group: 'org.ic4j', name: 'ic4j-candid', version: '0.6.11'
-	implementation group: 'org.ic4j', name: 'ic4j-agent', version: '0.6.11'	
+	implementation group: 'org.ic4j', name: 'ic4j-agent', version: '0.6.11'
+	implementation group: 'org.ic4j', name: 'ic4j-internetidentity', version: '0.6.11'	
 	implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.36'	
 	
-		// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+	// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
 	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
 
 	// https://mvnrepository.com/artifact/org.apache.httpcomponents.client5/httpclient5
@@ -54,6 +55,9 @@ dependencies {
 
 	// https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk15on
 	implementation group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.70'	
+	
+	// https://mvnrepository.com/artifact/info.picocli/picocli
+	implementation group: 'info.picocli', name: 'picocli', version: '4.6.3'
 }
 
 
