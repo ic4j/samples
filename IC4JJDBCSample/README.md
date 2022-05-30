@@ -8,7 +8,7 @@ Modify [application.properties](src/main/resources/application.properties) file 
 
 ```
 ic.location=https://m7sm4-2iaaa-aaaab-qabra-cai.raw.ic0.app/
-ic.canister=6xhyy-ryaaa-aaaab-qacqa-cai
+ic.canister=4n3qe-piaaa-aaaab-qac7a-cai
 ```
 
 Run Maven [build](pom.xml). Modify Java version in the build file if higher than 11.
@@ -20,5 +20,5 @@ mvn package
 Run Java with fat jar
 
 ```
-java -jar target/ic4j-sample-jcbc-0.6.8.jar
+java -jar target/ic4j-sample-jcbc-0.6.12.jar
 ```
