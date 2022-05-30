@@ -8,7 +8,7 @@ Modify [application.properties](src/main/resources/application.properties) file 
 
 ```
 ic.location=https://m7sm4-2iaaa-aaaab-qabra-cai.raw.ic0.app/
-ic.canister=yaku6-4iaaa-aaaab-qacfa-cai
+ic.canister=x5pps-pqaaa-aaaab-qadbq-cai
 ```
 
 Run Gradle [build](build.gradle). Modify Java version in the build file if higher than 1.8.
@@ -20,5 +20,5 @@ gradle build
 Run Java with fat jar
 
 ```
-java -jar build/libs/ic4j-sample-helloworld-advanced-0.6.8.jar
+java -jar build/libs/ic4j-sample-helloworld-advanced-0.6.12.jar
 ```
