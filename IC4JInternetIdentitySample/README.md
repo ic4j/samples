@@ -29,7 +29,7 @@ Run Java with fat jar to call Internet Identity methods. To run locally, set env
 
 To create Identity PEM file identity.pem.
 ```
-java -jar build/libs/ic4j-sample-internetidentity-0.6.11.jar identity
+java -jar build/libs/ic4j-sample-internetidentity-0.6.12.jar identity
 ```
 
 To generate Captcha challenge. This will create png Captcha file challenge.png.

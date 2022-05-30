@@ -20,7 +20,7 @@ mvn package
 to build Java project and then run: 
 
 ```bash
-java -jar target/ic4j-webservices-0.6.6.jar
+java -jar target/ic4j-webservices-0.6.8.jar
 ```
 
 to start Java Web Service (with Java 11)
