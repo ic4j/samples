@@ -21,5 +21,5 @@ gradle build
 Run Java with fat jar to return Bitcoin balance
 
 ```
-java -jar build/libs/ic4j-sample-bitcoin-0.6.12.jar
+java -jar build/libs/ic4j-sample-bitcoin-0.6.13.jar
 ```

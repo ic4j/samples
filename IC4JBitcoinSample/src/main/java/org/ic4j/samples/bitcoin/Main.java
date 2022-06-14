@@ -2,6 +2,7 @@ package org.ic4j.samples.bitcoin;
 
 import java.io.InputStream;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
 
@@ -10,6 +11,9 @@ import org.ic4j.agent.AgentBuilder;
 import org.ic4j.agent.ProxyBuilder;
 import org.ic4j.agent.ReplicaTransport;
 import org.ic4j.agent.http.ReplicaApacheHttpTransport;
+import org.ic4j.bitcoin.BitcoinService;
+import org.ic4j.bitcoin.GetBalanceRequest;
+import org.ic4j.bitcoin.GetUtxosRequest;
 import org.ic4j.candid.types.Label;
 import org.ic4j.types.Principal;
 import org.slf4j.Logger;
@@ -27,28 +31,26 @@ public class Main {
 			Properties env = new Properties();
 			env.load(propInputStream);
 
-			String icLocation = env.getProperty("ic.location");
-			String icCanister = env.getProperty("ic.canister");
-			String btcAddress = env.getProperty("btc.address");
+			String bitcoinLocation = env.getProperty("bitcoin.location");
+			String bitcoinAddress = env.getProperty("bitcoin.address");
 
-			ReplicaTransport transport = ReplicaApacheHttpTransport.create(icLocation);
+			ReplicaTransport transport = ReplicaApacheHttpTransport.create(bitcoinLocation);
 			Agent agent = new AgentBuilder().transport(transport).build();
 			
-			BitcoinProxy bitcoinProxy = ProxyBuilder.create(agent, Principal.fromString(icCanister))
-					.getProxy(BitcoinProxy.class);
-
+			BitcoinService bitcoinService = BitcoinService.create(agent, env);
+			
 			GetBalanceRequest balanceRequest = new GetBalanceRequest();
-			balanceRequest.address = btcAddress;
+			balanceRequest.address = bitcoinAddress;
 			
-			CompletableFuture<Map<Label,Object>> proxyResponse = bitcoinProxy.getBalance(balanceRequest);
+			LOG.info(bitcoinService.getBalance(balanceRequest).toString());
 			
-			Map<Label,Object> output = proxyResponse.get();
 			
-			Label okLabel = Label.createNamedLabel("Ok");
-			
-			if(output.containsKey(okLabel))
-				LOG.info(output.get(okLabel).toString());
-
+			GetUtxosRequest utxosRequest = new GetUtxosRequest();
+			utxosRequest.address = bitcoinAddress;
+			utxosRequest.minConfirmations = Optional.empty();
+			utxosRequest.offset = Optional.empty();
+							
+			LOG.info(bitcoinService.getUtxos(utxosRequest).totalCount.toString());			
 
 		} catch (Throwable e) {
 			LOG.error(e.getLocalizedMessage(), e);

@@ -20,5 +20,5 @@ mvn package
 Run Java with fat jar
 
 ```
-java -jar target/ic4j-sample-json-jackson-0.6.12.jar
+java -jar target/ic4j-sample-json-jackson-0.6.13.jar
 ```

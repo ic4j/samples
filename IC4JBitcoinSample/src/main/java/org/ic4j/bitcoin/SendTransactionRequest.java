@@ -1,4 +1,4 @@
-package org.ic4j.samples.bitcoin;
+package org.ic4j.bitcoin;
 
 import org.ic4j.candid.annotations.Field;
 import org.ic4j.candid.annotations.Name;

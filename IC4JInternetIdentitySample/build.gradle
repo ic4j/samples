@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'org.ic4j'
-version '0.6.12'
+version '0.6.13'
 
 sourceCompatibility = 1.8
 
@@ -30,9 +30,9 @@ jar {
 
 
 dependencies {
-	implementation group: 'org.ic4j', name: 'ic4j-candid', version: '0.6.12'
-	implementation group: 'org.ic4j', name: 'ic4j-agent', version: '0.6.12'
-	implementation group: 'org.ic4j', name: 'ic4j-internetidentity', version: '0.6.12'	
+	implementation group: 'org.ic4j', name: 'ic4j-candid', version: '0.6.13'
+	implementation group: 'org.ic4j', name: 'ic4j-agent', version: '0.6.13'
+	implementation group: 'org.ic4j', name: 'ic4j-internetidentity', version: '0.6.13'	
 	implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.36'	
 	
 	// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
