@@ -5,8 +5,8 @@ public class BitcoinError extends Error {
 
 	Enum code;
 	
-	public BitcoinError(Exception cause) {
-		super(cause);
+	public BitcoinError(Throwable ex) {
+		super(ex);
 	}
 	
 	public BitcoinError(Enum code) {

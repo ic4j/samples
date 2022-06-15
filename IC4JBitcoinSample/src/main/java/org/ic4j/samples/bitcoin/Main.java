@@ -42,15 +42,14 @@ public class Main {
 			GetBalanceRequest balanceRequest = new GetBalanceRequest();
 			balanceRequest.address = bitcoinAddress;
 			
-			LOG.info(bitcoinService.getBalance(balanceRequest).toString());
-			
+			LOG.info(bitcoinService.getBalance(balanceRequest).get().toString());	
 			
 			GetUtxosRequest utxosRequest = new GetUtxosRequest();
 			utxosRequest.address = bitcoinAddress;
 			utxosRequest.minConfirmations = Optional.empty();
 			utxosRequest.offset = Optional.empty();
 							
-			LOG.info(bitcoinService.getUtxos(utxosRequest).totalCount.toString());			
+			LOG.info(bitcoinService.getUtxos(utxosRequest).get().totalCount.toString());			
 
 		} catch (Throwable e) {
 			LOG.error(e.getLocalizedMessage(), e);

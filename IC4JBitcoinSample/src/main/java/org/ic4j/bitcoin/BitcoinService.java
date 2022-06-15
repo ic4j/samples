@@ -3,6 +3,7 @@ package org.ic4j.bitcoin;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import org.ic4j.agent.Agent;
@@ -19,10 +20,9 @@ public final class BitcoinService {
 	Agent agent;
 
 	BitcoinProxy bitcoinProxy;
-	
+
 	static {
-		InputStream propInputStream = BitcoinService.class.getClassLoader()
-				.getResourceAsStream(PROPERTIES_FILE_NAME);
+		InputStream propInputStream = BitcoinService.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE_NAME);
 
 		env = new Properties();
 		try {
@@ -31,12 +31,12 @@ public final class BitcoinService {
 		} catch (IOException e) {
 			throw new BitcoinError(e);
 		}
-	}	
-	
+	}
+
 	public static BitcoinService create(Agent agent) throws BitcoinError {
 		return create(agent, env);
-	}	
-	
+	}
+
 	public static BitcoinService create(Agent agent, Properties env) throws BitcoinError {
 
 		BitcoinService bitcoinService = new BitcoinService();
@@ -45,70 +45,91 @@ public final class BitcoinService {
 
 		bitcoinService.agent = agent;
 
-		bitcoinService.bitcoinProxy = ProxyBuilder
-				.create(agent, Principal.fromString(bitcoinService.bitcoinCanister))
+		bitcoinService.bitcoinProxy = ProxyBuilder.create(agent, Principal.fromString(bitcoinService.bitcoinCanister))
 				.getProxy(BitcoinProxy.class);
 
 		return bitcoinService;
-	}	
-	
-	public Long getBalance(GetBalanceRequest balanceRequest) throws BitcoinError
-	{
-		GetBalanceResponse balanceResponse;
-		try {
-			balanceResponse = bitcoinProxy.getBalance(balanceRequest).get();
-	
-		
-		if(balanceResponse == GetBalanceResponse.Ok)
-			return balanceResponse.okValue;
-		else if(balanceResponse == GetBalanceResponse.Err)
-			if(balanceResponse.errValue.isPresent())
-			throw new BitcoinError(balanceResponse.errValue.get());
-		
-		throw new BitcoinError("Unknown Cause");
-		
-		} catch (InterruptedException | ExecutionException e) {
-			throw new BitcoinError(e);
-		}
 	}
-	
-	public UtxosValue getUtxos(GetUtxosRequest utxosRequest) throws BitcoinError
-	{
-		GetUtxosResponse utxosResponse;
-		try {
-			utxosResponse = bitcoinProxy.getUtxos(utxosRequest).get();
+
+	public CompletableFuture<Long> getBalance(GetBalanceRequest balanceRequest) {
+
+		CompletableFuture<Long> response = new CompletableFuture<Long>();
+
+		bitcoinProxy.getBalance(balanceRequest).whenComplete((balanceResponse, ex) -> {
+			if (ex == null) {
+				if (balanceResponse != null) {
+					if (balanceResponse == GetBalanceResponse.Ok)
+						response.complete(balanceResponse.okValue);
+					else if (balanceResponse == GetBalanceResponse.Err)
+						if (balanceResponse.errValue.isPresent())
+							response.completeExceptionally(new BitcoinError(balanceResponse.errValue.get()));
+						else
+							response.completeExceptionally(new BitcoinError("Unknown Error"));
+					else
+						response.completeExceptionally(new BitcoinError("Unknown Error"));
+				} else {
+					response.completeExceptionally(new BitcoinError("Empty Response"));
+				}
+			} else
+				response.completeExceptionally(new BitcoinError(ex));
+
+		});
+
+		return response;
+
+	}
+
+	public CompletableFuture<UtxosValue> getUtxos(GetUtxosRequest utxosRequest) {
 		
-		if(utxosResponse == GetUtxosResponse.Ok)
-			return utxosResponse.okValue;
-		else if(utxosResponse == GetUtxosResponse.Err)
-			if(utxosResponse.errValue.isPresent())
-			throw new BitcoinError(utxosResponse.errValue.get());
+		CompletableFuture<UtxosValue> response = new CompletableFuture<UtxosValue>();
+
+		bitcoinProxy.getUtxos(utxosRequest).whenComplete((utxosResponse, ex) -> {
+			if (ex == null) {
+				if (utxosResponse != null) {
+					if (utxosResponse == GetUtxosResponse.Ok)
+						response.complete(utxosResponse.okValue);
+					else if (utxosResponse == GetUtxosResponse.Err)
+						if (utxosResponse.errValue.isPresent())
+							response.completeExceptionally(new BitcoinError(utxosResponse.errValue.get()));
+						else
+							response.completeExceptionally(new BitcoinError("Unknown Error"));
+					else
+						response.completeExceptionally(new BitcoinError("Unknown Error"));
+				} else {
+					response.completeExceptionally(new BitcoinError("Empty Response"));
+				}
+			} else
+				response.completeExceptionally(new BitcoinError(ex));
+
+		});
 		
-		throw new BitcoinError("Unknown Cause");
-		
-		} catch (InterruptedException | ExecutionException e) {
-			throw new BitcoinError(e);
-		}
-	}	
-	
-	public void sendTransaction(SendTransactionRequest sendTransactionRequest) throws BitcoinError
-	{
-		SendTransactionResponse sendTransactionResponse;
-		
-		try {
-			sendTransactionResponse = bitcoinProxy.sendTransaction(sendTransactionRequest).get();
-		
-		if(sendTransactionResponse == SendTransactionResponse.Ok)
-			return;
-		else if(sendTransactionResponse == SendTransactionResponse.Err)
-			if(sendTransactionResponse.errValue.isPresent())
-			throw new BitcoinError(sendTransactionResponse.errValue.get());
-		
-		throw new BitcoinError("Unknown Cause");
-		
-		} catch (InterruptedException | ExecutionException e) {
-			throw new BitcoinError(e);
-		}
-	}	
+		return response;
+	}
+
+	public CompletableFuture<Void> sendTransaction(SendTransactionRequest sendTransactionRequest) {
+		CompletableFuture<Void> response = new CompletableFuture<Void>();
+
+		bitcoinProxy.sendTransaction(sendTransactionRequest).whenComplete((sendTransactionResponse, ex) -> {
+			if (ex == null) {
+				if (sendTransactionResponse != null) {
+					if (sendTransactionResponse == SendTransactionResponse.Ok)
+						response.complete(null);
+					else if (sendTransactionResponse == SendTransactionResponse.Err)
+						if (sendTransactionResponse.errValue.isPresent())
+							response.completeExceptionally(new BitcoinError(sendTransactionResponse.errValue.get()));
+						else
+							response.completeExceptionally(new BitcoinError("Unknown Error"));
+					else
+						response.completeExceptionally(new BitcoinError("Unknown Error"));
+				} else {
+					response.completeExceptionally(new BitcoinError("Empty Response"));
+				}
+			} else
+				response.completeExceptionally(new BitcoinError(ex));
+
+		});
+
+		return response;
+	}
 
 }
