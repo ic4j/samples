@@ -1,6 +1,11 @@
 # IC4J Java Agent sample calling Dfinity Bitcoin Canister.
 
-Install local Bitcoin canister, using Dfinity Bitcoin Preview https://github.com/dfinity/bitcoin-developer-preview
+Install local Bitcoin canister, using Dfinity Bitcoin Preview
+
+ <a href=" https://github.com/dfinity/bitcoin-developer-preview">
+ https://github.com/dfinity/bitcoin-developer-preview
+</a>
+
 
 This application requires Java version 1.8.
 
