@@ -38,6 +38,8 @@ public class Main {
 			ReplicaTransport transport = ReplicaApacheHttpTransport.create(icLocation);
 			Agent agent = new AgentBuilder().transport(transport).build();
 			
+			agent.setVerify(false);
+			
 			SwiftProxy swiftProxy = ProxyBuilder.create(agent, Principal.fromString(icCanister))
 					.getProxy(SwiftProxy.class);
 
