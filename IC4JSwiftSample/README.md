@@ -21,13 +21,11 @@ ic.canister=su63m-yyaaa-aaaaa-aaala-cai
 
 ### Deploy locally 
 
-Note: Local Dfinity SDK does not properly signs response of this document, so to run it, uncomment setVerify(false) in [Main.java](src/main/java/org/ic4j/samples/swift/Main.java)
 Canister source code is in [motoko directory](/src/motoko). To install the sample canister run dfx deploy command in this directory.
 
 ```
 dfx deploy
 ```
-
 
 Modify [application.properties](src/main/resources/application.properties) file to set canister location and id.
 
