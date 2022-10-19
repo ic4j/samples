@@ -28,6 +28,7 @@ import org.ic4j.internetidentity.AddTentativeDeviceResponse;
 import org.ic4j.internetidentity.Challenge;
 import org.ic4j.internetidentity.ChallengeResult;
 import org.ic4j.internetidentity.DeviceData;
+import org.ic4j.internetidentity.DeviceProtection;
 import org.ic4j.internetidentity.GetDelegationResponse;
 import org.ic4j.internetidentity.IdentityAnchorInfo;
 import org.ic4j.internetidentity.InternetIdentityService;
@@ -101,6 +102,8 @@ class Main implements Callable<Integer> {
 			InternetIdentityService.savePrivateKey(keyPair.getPrivate(), "identity.pem");
 
 			Agent agent = new AgentBuilder().transport(transport).identity(identity).build();
+			
+			agent.fetchRootKey();
 
 			InternetIdentityService internetIdentityService = InternetIdentityService.create(agent, env);
 
@@ -274,6 +277,10 @@ class Main implements Callable<Integer> {
 
 			KeyType keyType = KeyType.platform;
 			device.keyType = keyType;
+			
+			device.protection = DeviceProtection.isunprotected;
+
+			device.credentialId = Optional.empty();
 
 			CompletableFuture<RegisterResponse> registerResponse = internetIdentityService.register(device,
 					challengeResult);
@@ -307,6 +314,9 @@ class Main implements Callable<Integer> {
 
 			device.alias = this.deviceAlias;
 			device.pubkey = keyPair.getPublic().getEncoded();
+			device.protection = DeviceProtection.isunprotected;
+			
+			device.credentialId = Optional.empty();
 
 			Purpose purpose = Purpose.authentication;
 
@@ -379,6 +389,8 @@ class Main implements Callable<Integer> {
 		ReplicaTransport transport = ReplicaApacheHttpTransport.create(iiLocation);
 
 		Agent agent = new AgentBuilder().transport(transport).identity(identity).build();
+		
+		agent.fetchRootKey();
 
 		return InternetIdentityService.create(agent, env);
 	}
