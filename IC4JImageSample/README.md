@@ -20,5 +20,5 @@ gradle build
 Run Java with fat jar
 
 ```
-java -jar build/libs/ic4j-sample-image-0.6.16.jar
+java -jar build/libs/ic4j-sample-image-0.6.17.jar
 ```

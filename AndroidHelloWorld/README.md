@@ -17,8 +17,8 @@ This is how you add Java Agent modules to your code (from Maven Central)
 
 ```
     implementation 'commons-codec:commons-codec:1.15'
-    implementation 'org.ic4j:ic4j-candid:0.6.8'
-    implementation('org.ic4j:ic4j-agent:0.6.8') {
+    implementation 'org.ic4j:ic4j-candid:0.6.17'
+    implementation('org.ic4j:ic4j-agent:0.6.17') {
         exclude group: 'org.apache.httpcomponents.client5', module: 'httpclient5'
     }
 ```

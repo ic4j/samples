@@ -30,13 +30,13 @@ Run Java with fat jar to call Internet Identity methods. To run locally, set env
 To create Identity PEM file identity.pem.
 
 ```
-java -jar build/libs/ic4j-sample-internetidentity-0.6.16.jar identity
+java -jar build/libs/ic4j-sample-internetidentity-0.6.17.jar identity
 ```
 
 To generate Captcha challenge. This will create png Captcha file challenge.png.
 
 ```
-java -jar build/libs/ic4j-sample-internetidentity-0.6.16.jar --env "application.properties" --pemfile "identity.pem" challenge
+java -jar build/libs/ic4j-sample-internetidentity-0.6.17.jar --env "application.properties" --pemfile "identity.pem" challenge
 [main] INFO org.ic4j.samples.internetidentity.Main - Get Captcha from PNG image challenge.png
 [main] INFO org.ic4j.samples.internetidentity.Main - Register using challenge key :owesuvvgqs
 ```
@@ -44,7 +44,7 @@ java -jar build/libs/ic4j-sample-internetidentity-0.6.16.jar --env "application.
 Use Captcha chars and challenge key to register a new user.
 
 ```
-java -jar build/libs/ic4j-sample-internetidentity-0.6.16.jar --env "application.properties" --pemfile "identity.pem" --challengekey "owesuvvgqs" --captcha "a" --device "Device2" register
+java -jar build/libs/ic4j-sample-internetidentity-0.6.17.jar --env "application.properties" --pemfile "identity.pem" --challengekey "owesuvvgqs" --captcha "a" --device "Device2" register
 [main] INFO org.ic4j.samples.internetidentity.Main - Registration status:registered
 [main] INFO org.ic4j.samples.internetidentity.Main - User Id:10053
 ```
@@ -52,18 +52,18 @@ java -jar build/libs/ic4j-sample-internetidentity-0.6.16.jar --env "application.
 Use user id to add or remove a device.
 
 ```
-java -jar build/libs/ic4j-sample-internetidentity-0.6.16.jar --userid "10053" --env "application.properties" --device "Device3" adddevice
+java -jar build/libs/ic4j-sample-internetidentity-0.6.17.jar --userid "10053" --env "application.properties" --device "Device3" adddevice
 [main] INFO org.ic4j.samples.internetidentity.Main - Created device Device3 identity PEM file Device3.pem
 ```
 
 ```
-java -jar build/libs/ic4j-sample-internetidentity-0.6.16.jar --userid "10053" --env "application.properties" --devicepemfile "Device3.pem" removedevice
+java -jar build/libs/ic4j-sample-internetidentity-0.6.17.jar --userid "10053" --env "application.properties" --devicepemfile "Device3.pem" removedevice
 ```
 
 Lookup all user devices.
 
 ```
-java -jar build/libs/ic4j-sample-internetidentity-0.6.16.jar --userid "10053" --env "application.properties" lookup
+java -jar build/libs/ic4j-sample-internetidentity-0.6.17.jar --userid "10053" --env "application.properties" lookup
 [main] INFO org.ic4j.samples.internetidentity.Main - User Id:10053
 [main] INFO org.ic4j.samples.internetidentity.Main - Device:Device2
 ```

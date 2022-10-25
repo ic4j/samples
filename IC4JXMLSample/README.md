@@ -20,5 +20,5 @@ mvn package
 Run Java with fat jar
 
 ```
-java -jar target/ic4j-sample-xml-0.6.16.jar
+java -jar target/ic4j-sample-xml-0.6.17.jar
 ```

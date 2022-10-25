@@ -2,6 +2,6 @@
     <string name="app_name">Hello World</string>
     <string name="edit_message">Enter a message</string>
     <string name="button_send">Send</string>
-    <string name="url">https://m7sm4-2iaaa-aaaab-qabra-cai.raw.ic0.app</string>
-    <string name="canister">363tq-3yaaa-aaaab-qacma-cai</string>
+    <string name="url">https://m7sm4-2iaaa-aaaab-qabra-cai.ic0.app</string>
+    <string name="canister">wzcaa-wqaaa-aaaab-qadhq-cai</string>
 </resources>
