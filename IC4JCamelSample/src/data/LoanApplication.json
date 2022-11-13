@@ -1,0 +1,10 @@
+{
+"id" : 0,
+"firstname" : "John",
+"lastname" : "Doe",
+"zipcode" : "99999",
+"ssn" : "111-11-1111",
+"amount" : 2000.00,
+"term" : 24,
+"created" : 0
+}

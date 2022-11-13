@@ -1,0 +1,16 @@
+- route:
+    id: "kafka"
+    from:
+      uri: "file:src/data?noop=true"
+      steps:
+        - log: "${body}"
+        - unmarshal:
+              json:
+                  library: jackson
+                  unmarshalType: "org.ic4j.samples.camel.LoanApplication" 
+        - to: "ic:update?url={{ic.location}}&method=apply&canisterId={{ic.canister}}&outClass=org.ic4j.samples.camel.LoanOffer"
+        - marshal:
+              json:
+                  library: jackson
+                  unmarshalType: "org.ic4j.samples.camel.LoanOffer" 
+        - log: "${body}"
