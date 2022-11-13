@@ -31,14 +31,38 @@ bin/kafka-topics.sh --bootstrap-server=localhost:9092 --create --topic icTopic -
 
 To install the canister Dapp, use Motoko code [main.mo](src/main.mo), copy/paste to [Motoko Playground](https://m7sm4-2iaaa-aaaab-qabra-cai.raw.ic0.app/) and deploy.
 
-This application requires Java version 11.
-
 Modify [application.properties](src/main/resources/application.properties) file to set canister location and id.
 
 ```
 ic.location=https://m7sm4-2iaaa-aaaab-qabra-cai.ic0.app/
 ic.canister=4w6mb-vqaaa-aaaab-qac5q-cai
 ```
+
+This application requires Java version 11.
+
+By default this sample is using Apache Camel routes define in two yaml route files. Route in [kafka-route.yaml](src/main/resources/routes/kafka-route.yaml) file reads JSON file and drops it into Kafka topic icTopic. The second route [ic-route.yaml](src/main/resources/routes/ic-route.yaml) reads messages from Kafka topic icTopic and sends them to the internet Computer canister.
+
+```
+- route:
+    id: "kafka"
+    from:
+      uri: "file:src/data?noop=true"
+      steps:
+        - log: "${body}"
+        - unmarshal:
+              json:
+                  library: jackson
+                  unmarshalType: "org.ic4j.samples.camel.LoanApplication" 
+        - to: "ic:update?url={{ic.location}}&method=apply&canisterId={{ic.canister}}&outClass=org.ic4j.samples.camel.LoanOffer"
+        - marshal:
+              json:
+                  library: jackson
+                  unmarshalType: "org.ic4j.samples.camel.LoanOffer" 
+        - log: "${body}"
+```
+
+NOTE: This sample has also an option to run same routes, but definded using Java Route Builder [ICRouteBuilder](src/main/org/ic4j/samples/camel/ICRouteBuilder.java). To run it, just uncomment line in [CamelMain](src/main/org/ic4j/samples/camel/CamelMain.java) file and comment out property camel.main.routes-include-pattern in [application.properties](src/main/resources/application.properties) file.
+
 
 Run Maven [build](pom.xml). Modify Java version in the build file if higher than 11.
 
