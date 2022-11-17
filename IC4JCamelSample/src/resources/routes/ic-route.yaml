@@ -1,16 +1,39 @@
-- route:
-    id: "kafka"
-    from:
-      uri: "file:src/data?noop=true"
-      steps:
-        - log: "${body}"
-        - unmarshal:
-              json:
+apiVersion: camel.apache.org/v1
+kind: Integration
+metadata:
+  name: CamelICdemo
+spec:
+  flows:
+    - route:
+        from:
+          uri: file:src/data?noop=true
+          steps:
+            - setHeader:
+                name: kafka.KEY
+                expression:
+                  constant:
+                    expression: Camel
+            - to:
+                uri: kafka:icTopic?brokers=localhost:9092
+        id: kafka  
+    - route:
+        from:
+          uri: kafka:icTopic?brokers=localhost:9092
+          steps:
+            - log:
+                message: ${body}
+            - unmarshal:
+                json:
                   library: jackson
-                  unmarshalType: "org.ic4j.samples.camel.LoanApplication" 
-        - to: "ic:update?url={{ic.location}}&method=apply&canisterId={{ic.canister}}&outClass=org.ic4j.samples.camel.LoanOffer"
-        - marshal:
-              json:
+                  unmarshalType: org.ic4j.samples.camel.LoanApplication
+            - to:
+                uri: >-
+                  ic:update?url={{ic.location}}&method=apply&canisterId={{ic.canister}}&outClass=org.ic4j.samples.camel.LoanOffer
+            - marshal:
+                json:
                   library: jackson
-                  unmarshalType: "org.ic4j.samples.camel.LoanOffer" 
-        - log: "${body}"
+                  unmarshalType: org.ic4j.samples.camel.LoanOffer
+            - log:
+                message: ${body}
+        id: ic
+

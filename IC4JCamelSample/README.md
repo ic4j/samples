@@ -40,25 +40,47 @@ ic.canister=4w6mb-vqaaa-aaaab-qac5q-cai
 
 This application requires Java version 11.
 
-By default this sample is using Apache Camel routes define in two yaml route files. Route in [kafka-route.yaml](src/main/resources/routes/kafka-route.yaml) file reads JSON file and drops it into Kafka topic icTopic. The second route [ic-route.yaml](src/main/resources/routes/ic-route.yaml) reads messages from Kafka topic icTopic and sends them to the internet Computer canister.
+By default this sample is using two Apache Camel routes defined in [ic-route.yaml](src/main/resources/routes/ic-route.yaml) file. The first route  reads JSON file and drops it into Kafka topic icTopic. The second route reads messages from Kafka topic icTopic and sends them to the internet Computer canister.
 
 ```
-- route:
-    id: "kafka"
-    from:
-      uri: "file:src/data?noop=true"
-      steps:
-        - log: "${body}"
-        - unmarshal:
-              json:
+apiVersion: camel.apache.org/v1
+kind: Integration
+metadata:
+  name: CamelICdemo
+spec:
+  flows:
+    - route:
+        from:
+          uri: file:src/data?noop=true
+          steps:
+            - setHeader:
+                name: kafka.KEY
+                expression:
+                  constant:
+                    expression: Camel
+            - to:
+                uri: kafka:icTopic?brokers=localhost:9092
+        id: kafka  
+    - route:
+        from:
+          uri: kafka:icTopic?brokers=localhost:9092
+          steps:
+            - log:
+                message: ${body}
+            - unmarshal:
+                json:
                   library: jackson
-                  unmarshalType: "org.ic4j.samples.camel.LoanApplication" 
-        - to: "ic:update?url={{ic.location}}&method=apply&canisterId={{ic.canister}}&outClass=org.ic4j.samples.camel.LoanOffer"
-        - marshal:
-              json:
+                  unmarshalType: org.ic4j.samples.camel.LoanApplication
+            - to:
+                uri: >-
+                  ic:update?url={{ic.location}}&method=apply&canisterId={{ic.canister}}&outClass=org.ic4j.samples.camel.LoanOffer
+            - marshal:
+                json:
                   library: jackson
-                  unmarshalType: "org.ic4j.samples.camel.LoanOffer" 
-        - log: "${body}"
+                  unmarshalType: org.ic4j.samples.camel.LoanOffer
+            - log:
+                message: ${body}
+        id: ic
 ```
 
 NOTE: This sample has also an option to run same routes, but definded using Java Route Builder [ICRouteBuilder](src/main/org/ic4j/samples/camel/ICRouteBuilder.java). To run it, just uncomment line in [CamelMain](src/main/org/ic4j/samples/camel/CamelMain.java) file and comment out property camel.main.routes-include-pattern in [application.properties](src/main/resources/application.properties) file.
