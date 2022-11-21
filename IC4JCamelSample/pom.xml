@@ -84,7 +84,7 @@
 		<dependency>
 		  <groupId>org.ic4j</groupId>
 		  <artifactId>ic4j-camel</artifactId>
-		  <version>0.6.17-BETA2</version>
+		  <version>0.6.17-BETA3</version>
 		</dependency>
 	</dependencies>
 	<build>

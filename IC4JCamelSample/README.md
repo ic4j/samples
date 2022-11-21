@@ -60,7 +60,7 @@ spec:
                     expression: Camel
             - to:
                 uri: kafka:icTopic?brokers=localhost:9092
-        id: kafka  
+        id: kafka
     - route:
         from:
           uri: kafka:icTopic?brokers=localhost:9092
@@ -72,15 +72,21 @@ spec:
                   library: jackson
                   unmarshalType: org.ic4j.samples.camel.LoanApplication
             - to:
-                uri: >-
-                  ic:update?url={{ic.location}}&method=apply&canisterId={{ic.canister}}&outClass=org.ic4j.samples.camel.LoanOffer
+                uri: ic:update
+                parameters:
+                  canisterId: '{{ic.canister}}'
+                  identityType: anonymous
+                  method: apply
+                  url: '{{ic.location}}'
+                  outClass: org.ic4j.samples.camel.LoanOffer
+                description: Calling Internet Computer update method
             - marshal:
                 json:
                   library: jackson
                   unmarshalType: org.ic4j.samples.camel.LoanOffer
             - log:
                 message: ${body}
-        id: ic
+        id: ic        
 ```
 
 NOTE: This sample has also an option to run same routes, but definded using Java Route Builder [ICRouteBuilder](src/main/org/ic4j/samples/camel/ICRouteBuilder.java). To run it, just uncomment line in [CamelMain](src/main/org/ic4j/samples/camel/CamelMain.java) file and comment out property camel.main.routes-include-pattern in [application.properties](src/main/resources/application.properties) file.
