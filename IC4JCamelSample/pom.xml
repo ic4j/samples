@@ -80,7 +80,19 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-yaml-dsl</artifactId>
              <version>${camel.version}</version>
-        </dependency>							
+        </dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.camel/camel-mail -->
+		<dependency>
+		    <groupId>org.apache.camel</groupId>
+		    <artifactId>camel-mail</artifactId>
+		     <version>${camel.version}</version>
+		</dependency>  
+		<!-- https://mvnrepository.com/artifact/org.apache.camel/camel-kamelet -->
+		<dependency>
+		    <groupId>org.apache.camel</groupId>
+		    <artifactId>camel-kamelet</artifactId>
+		    <version>${camel.version}</version>
+		</dependency>		      							
 		<dependency>
 		  <groupId>org.ic4j</groupId>
 		  <artifactId>ic4j-camel</artifactId>

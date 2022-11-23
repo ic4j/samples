@@ -41,4 +41,4 @@ spec:
                   unmarshalType: org.ic4j.samples.camel.LoanOffer
             - log:
                 message: ${body}
-        id: ic        
+        id: ic

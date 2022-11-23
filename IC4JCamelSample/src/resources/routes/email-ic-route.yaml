@@ -1,0 +1,37 @@
+apiVersion: camel.apache.org/v1
+kind: Integration
+metadata:
+  name: email-ic-route.yaml
+spec:
+  flows:
+    - route:
+        from:
+          uri: imaps:localhost:993
+          steps:
+            - log:
+                message: ${body}
+            - unmarshal:
+                json:
+                  library: jackson
+                  unmarshalType: org.ic4j.samples.camel.LoanApplication
+            - to:
+                uri: ic:update
+                parameters:
+                  canisterId: '{{ic.canister}}'
+                  identityType: basic
+                  method: apply
+                  url: '{{ic.location}}'
+                  outClass: org.ic4j.samples.camel.LoanOffer
+                  pemFile: ic.pem
+                description: Calling Internet Computer update method
+            - marshal:
+                json:
+                  library: jackson
+                  unmarshalType: org.ic4j.samples.camel.LoanOffer
+            - log:
+                message: ${body}
+          parameters:
+            password: '1234'
+            username: user01@james.local
+        id: imap
+

@@ -40,7 +40,7 @@ ic.canister=4w6mb-vqaaa-aaaab-qac5q-cai
 
 This application requires Java version 11.
 
-By default this sample is using two Apache Camel routes defined in [ic-route.yaml](src/main/resources/routes/ic-route.yaml) file. The first route  reads JSON file and drops it into Kafka topic icTopic. The second route reads messages from Kafka topic icTopic and sends them to the internet Computer canister.
+By default this sample is using two Apache Camel routes defined in [kafka-ic-route.yaml](src/main/resources/routes/kafka-ic-route.yaml) file. The first route reads JSON file and drops it into Kafka topic icTopic. The second route reads messages from Kafka topic icTopic and sends them to the internet Computer canister.
 
 ```
 apiVersion: camel.apache.org/v1
@@ -103,3 +103,26 @@ Run Java with fat jar
 ```
 java -jar target/ic4j-sample-camel-0.6.17.jar
 ```
+
+NOTE: This sample also includes route [email-ic-route.yaml](src/main/resources/routes/email-ic-route.yaml) that reads JSON payload from incoming email message using IMAP component. To test it you can use Apache James email server. To run it from Docker execute this command.
+
+```
+docker run -p "465:465" -p "993:993" apache/james:demo-3.7.2
+```
+
+Then in application.properties file comment out line with email-ic-route.yaml route. Rebuild using mvn and run again. To start the route connect from email client to local James server andsend an email to user01@james.local address with loan application body.
+
+```
+{
+"id" : 0,
+"firstname" : "John",
+"lastname" : "Doe",
+"zipcode" : "99999",
+"ssn" : "111-11-1111",
+"amount" : 2000.00,
+"term" : 24,
+"created" : 0
+}
+```
+
+To learn more about Apache James https://james.apache.org/

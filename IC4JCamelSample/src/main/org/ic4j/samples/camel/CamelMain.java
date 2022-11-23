@@ -11,6 +11,7 @@ public class CamelMain {
     
 	public static void main(String[] args) {			
 	    try {
+			System.setProperty("mail.imaps.ssl.trust", "*"); 	    	
 		    Main main = new Main();
 		    //main.configure().addRoutesBuilder(new ICRouteBuilder());
 			main.run(args);
