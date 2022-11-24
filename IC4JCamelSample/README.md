@@ -31,7 +31,7 @@ bin/kafka-topics.sh --bootstrap-server=localhost:9092 --create --topic icTopic -
 
 To install the canister Dapp, use Motoko code [main.mo](src/main.mo), copy/paste to [Motoko Playground](https://m7sm4-2iaaa-aaaab-qabra-cai.raw.ic0.app/) and deploy.
 
-Modify [application.properties](src/main/resources/application.properties) file to set canister location and id.
+Modify [application.properties](src/resources/application.properties) file to set canister location and id.
 
 ```
 ic.location=https://m7sm4-2iaaa-aaaab-qabra-cai.ic0.app/
