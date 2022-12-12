@@ -101,7 +101,7 @@ mvn package
 Run Java with fat jar
 
 ```
-java -jar target/ic4j-sample-camel-0.6.17.jar
+java -jar target/ic4j-sample-camel-0.6.18.jar
 ```
 
 NOTE: This sample also includes route [email-ic-route.yaml](src/resources/routes/email-ic-route.yaml) that reads JSON payload from incoming email message using IMAP component. To test it you can use Apache James email server. To run it from Docker execute this command.

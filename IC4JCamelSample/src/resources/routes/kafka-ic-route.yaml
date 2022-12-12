@@ -34,6 +34,7 @@ spec:
                   method: apply
                   url: '{{ic.location}}'
                   outClass: org.ic4j.samples.camel.LoanOffer
+                  transportType: java
                 description: Calling Internet Computer update method
             - marshal:
                 json:

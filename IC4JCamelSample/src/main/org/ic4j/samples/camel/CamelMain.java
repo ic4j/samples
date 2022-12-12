@@ -4,6 +4,7 @@ import org.apache.camel.main.Main;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 public class CamelMain {
 
     static Logger LOG = LoggerFactory.getLogger(CamelMain.class);

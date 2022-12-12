@@ -34,4 +34,3 @@ spec:
             password: '1234'
             username: user01@james.local
         id: imap
-
