@@ -2,13 +2,13 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.ic4j</groupId>
   <artifactId>ic4j-sample-json-gson</artifactId>
-  <version>0.6.17</version>
+  <version>0.6.18</version>
   <name>IC4JGsonSample</name>
   <description>This sample is demonstrating how to use the IC with Java Gson JSON</description>
   
 <properties>
-		<ic4j.agent.version>0.6.17</ic4j.agent.version>
-		<ic4j.candid.version>0.6.17</ic4j.candid.version>
+		<ic4j.agent.version>0.6.18</ic4j.agent.version>
+		<ic4j.candid.version>0.6.18</ic4j.candid.version>
 		<slf4j.version>2.0.3</slf4j.version>
 		<mainClass>org.ic4j.samples.gson.Main</mainClass>
 		<maven.compiler.source>11</maven.compiler.source>
