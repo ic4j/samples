@@ -1,22 +1,8 @@
 {
-  "version": 1,
-  "dfx": "0.11.1",
   "canisters": {
     "swift_backend": {
       "type": "motoko",
       "main": "main.mo"
-    }
-  },
-  "defaults": {
-    "build": {
-      "packtool": "",
-      "args": ""
-    }
-  },
-  "networks": {
-    "local": {
-      "bind": "127.0.0.1:8000",
-      "type": "ephemeral"
     }
   }
 }
