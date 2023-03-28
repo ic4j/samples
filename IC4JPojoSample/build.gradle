@@ -4,7 +4,7 @@ plugins {
 
 
 group 'org.ic4j'
-version '0.6.18'
+version '0.6.19'
 
 sourceCompatibility = 11
 
