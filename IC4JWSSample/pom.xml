@@ -4,10 +4,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ic4j.samples</groupId>
 	<artifactId>ic4j-webservices</artifactId>
-	<version>0.6.8</version>
+	<version>0.6.19</version>
 
 	<properties>
-		<ic4j.agent.version>0.6.8</ic4j.agent.version>
+		<ic4j.agent.version>0.6.19</ic4j.agent.version>
 		<helidon.version>2.3.2</helidon.version>
 		<mainClass>org.ic4j.samples.ws.Server</mainClass>
 		<maven.compiler.source>11</maven.compiler.source>
@@ -36,31 +36,26 @@
 		<dependency>
 			<groupId>io.helidon.webserver</groupId>
 			<artifactId>helidon-webserver</artifactId>
-			<version>${helidon.version}</version>
-		</dependency>
+			</dependency>
 		<dependency>
 			<groupId>io.helidon.config</groupId>
 			<artifactId>helidon-config-yaml</artifactId>
-			<version>${helidon.version}</version>
-		</dependency>
+			</dependency>
 		<dependency>
 			<groupId>io.helidon.media</groupId>
 			<artifactId>helidon-media-jsonp</artifactId>
-			<version>${helidon.version}</version>
-		</dependency>
+			</dependency>
 		<dependency>
 			<groupId>io.helidon.webserver</groupId>
 			<artifactId>helidon-webserver-tyrus</artifactId>
-			<version>${helidon.version}</version>
-		</dependency>
+			</dependency>
 
 
 		<!-- https://mvnrepository.com/artifact/io.helidon.webserver/helidon-webserver-static-content -->
 		<dependency>
 			<groupId>io.helidon.webserver</groupId>
 			<artifactId>helidon-webserver-static-content</artifactId>
-			<version>${helidon.version}</version>
-		</dependency>
+		</dependency>			
 
 		<dependency>
 			<groupId>org.ic4j</groupId>

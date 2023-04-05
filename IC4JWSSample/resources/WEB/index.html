@@ -9,7 +9,7 @@
          function webSocketTest() {
             if ("WebSocket" in window) {
                document.getElementById("title").innerHTML = "WebSocket is supported by your Browser!";
-               ws = new WebSocket("ws://localhost:8080/websocket/board");
+               ws = new WebSocket("ws://localhost:8082/websocket/board");
                ws.onopen = function() {
                   document.getElementById("result").innerHTML += "<p>WebSocket openned</p>";
                };

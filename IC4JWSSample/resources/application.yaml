@@ -3,7 +3,7 @@ server:
   host: 0.0.0.0
 
 dfinity:
-   canister: ofoea-eyaaa-aaaab-qab6a-cai  
+   canister: yvnft-5aaaa-aaaab-qacgq-cai  
    url: https://m7sm4-2iaaa-aaaab-qabra-cai.raw.ic0.app/
    
    #canister: rrkah-fqaaa-aaaaa-aaaaq-cai  

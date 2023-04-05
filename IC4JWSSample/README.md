@@ -13,6 +13,7 @@ To deploy a new, modified version of Motoko code please follow Dfinity example i
 In application.yaml modify canister id value (and url, if needed).
 
 Run 
+
 ```bash
 mvn package
 ```
@@ -20,7 +21,7 @@ mvn package
 to build Java project and then run: 
 
 ```bash
-java -jar target/ic4j-webservices-0.6.8.jar
+java -jar target/ic4j-webservices-0.6.19.jar
 ```
 
 to start Java Web Service (with Java 11)
