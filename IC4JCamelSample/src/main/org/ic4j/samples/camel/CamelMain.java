@@ -14,7 +14,8 @@ public class CamelMain {
 	    try {
 			System.setProperty("mail.imaps.ssl.trust", "*"); 	    	
 		    Main main = new Main();
-		    //main.configure().addRoutesBuilder(new ICRouteBuilder());
+		    
+		   // main.configure().addRoutesBuilder(new ICRouteBuilder());
 			main.run(args);
 		} catch (Exception e) {
 			LOG.error(e.getLocalizedMessage(),e);

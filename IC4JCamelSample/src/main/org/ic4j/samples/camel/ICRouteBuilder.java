@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
  * A Camel Java Kafka to IC Router
  */
 public class ICRouteBuilder extends RouteBuilder {
-	static String PROPERTIES_FILE_NAME = "application.properties";
 	static final String LOAN_APPLICATION_FILE = "LoanApplication.json";
 
     static Logger LOG = LoggerFactory.getLogger(ICRouteBuilder.class);
@@ -20,6 +19,7 @@ public class ICRouteBuilder extends RouteBuilder {
     @Override
     public void configure() throws Exception {    	
         // Kafka Producer using Message key
+    	   	
         from("file:src/data?noop=true")
                  .setHeader(KafkaConstants.KEY, constant("Camel")) 
                 .to("kafka:icTopic?brokers=localhost:9092");
@@ -39,5 +39,9 @@ public class ICRouteBuilder extends RouteBuilder {
                 .log("Loan Offer APR : ${body.apr}")
                 .marshal().json(JsonLibrary.Jackson,LoanOffer.class)
                 .log("Loan Offer received from IC : ${body}");
+          
+    	
+        
+        
     }
 }

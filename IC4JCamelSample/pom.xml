@@ -2,23 +2,25 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.ic4j</groupId>
   <artifactId>ic4j-sample-camel</artifactId>
-  <version>0.6.18</version>
+  <version>0.6.19</version>
   <name>IC4JCamelSample</name>
   <description>This sample is demonstrating how to use the IC with Apache Kafka using Apache Camel</description>
   
 <properties>
-		<ic4j.agent.version>0.6.18</ic4j.agent.version>
-		<ic4j.candid.version>0.6.18</ic4j.candid.version>
-		<slf4j.version>2.0.3</slf4j.version>
-		<camel.version>3.19.0</camel.version>
+		<ic4j.agent.version>0.6.19.1</ic4j.agent.version>
+		<ic4j.candid.version>0.6.19</ic4j.candid.version>
+		<ic4j.camel.version>0.6.19.1</ic4j.camel.version>
+		<slf4j.version>2.0.6</slf4j.version>
+		<camel.version>3.20.3</camel.version>
 		<mainClass>org.ic4j.samples.camel.CamelMain</mainClass>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
         <!-- plugin versions -->
-        <version.plugin.compiler>3.8.1</version.plugin.compiler>
+        <version.plugin.compiler>3.10.1</version.plugin.compiler>
         <version.plugin.dependency>3.0.0</version.plugin.dependency>
         <version.plugin.jar>3.0.2</version.plugin.jar>
         <version.plugin.resources>2.7</version.plugin.resources>
+        
 </properties>
 
 <dependencies>
@@ -36,6 +38,11 @@
 			<groupId>org.ic4j</groupId>
 			<artifactId>ic4j-candid</artifactId>
 			<version>${ic4j.candid.version}</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.ic4j</groupId>
+		  <artifactId>ic4j-camel</artifactId>
+		  <version>${ic4j.camel.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -82,9 +89,14 @@
 		     <version>${camel.version}</version>
 		</dependency>  
 		<dependency>
-		  <groupId>org.ic4j</groupId>
-		  <artifactId>ic4j-camel</artifactId>
-		  <version>0.6.18</version>
+		    <groupId>org.apache.camel</groupId>
+		    <artifactId>camel-jaxb</artifactId>
+		    <version>${camel.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.prowidesoftware</groupId>
+		    <artifactId>pw-iso20022</artifactId>
+		    <version>SRU2022-9.3.5</version>
 		</dependency>
 	</dependencies>
 	<build>
