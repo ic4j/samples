@@ -1,0 +1,16 @@
+package org.ic4j.origyn.nft;
+
+import org.ic4j.candid.annotations.Field;
+import org.ic4j.candid.annotations.Name;
+import org.ic4j.candid.types.Type;
+import org.ic4j.types.Principal;
+
+public class HistoryResultOkValueTxn_typeFieldcanister_managers_updatedValue {
+  @Name("managers")
+  @Field(Type.PRINCIPAL)
+  public Principal[] managers;
+
+  @Name("extensible")
+  @Field(Type.VARIANT)
+  public CandyShared extensible;
+}
