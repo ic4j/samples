@@ -9,7 +9,6 @@ import org.ic4j.agent.AgentBuilder;
 import org.ic4j.agent.ProxyBuilder;
 import org.ic4j.agent.ReplicaTransport;
 import org.ic4j.agent.http.ReplicaApacheHttpTransport;
-import org.ic4j.types.Func;
 import org.ic4j.types.Principal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +27,7 @@ public class Main {
 
 			String icLocation = env.getProperty("ic.location");
 			String icCanister = env.getProperty("ic.canister");
+			
 
 			ReplicaTransport transport = ReplicaApacheHttpTransport.create(icLocation);
 			Agent agent = new AgentBuilder().transport(transport).build();
@@ -40,8 +40,7 @@ public class Main {
 			CompletableFuture<String> proxyResponse = helloWorldProxy.greet(value);
 			
 			String output = proxyResponse.get();
-			LOG.info(output);			
-
+			LOG.info(output);							
 
 		} catch (Throwable e) {
 			LOG.error(e.getLocalizedMessage(), e);
