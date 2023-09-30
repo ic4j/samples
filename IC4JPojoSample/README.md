@@ -7,7 +7,7 @@ This application requires Java version 11.
 Modify [application.properties](src/main/resources/application.properties) file to set canister location and id.
 
 ```
-ic.location=https://m7sm4-2iaaa-aaaab-qabra-cai.ic0.app/
+ic.location=https://icp-api.io/
 ic.canister=7ulr6-faaaa-aaaab-qacwq-cai
 ```
 
