@@ -34,11 +34,11 @@ To install the canister Dapp, use Motoko code [main.mo](src/main.mo), copy/paste
 Modify [application.properties](src/resources/application.properties) file to set canister location and id.
 
 ```
-ic.location=https://m7sm4-2iaaa-aaaab-qabra-cai.ic0.app/
+ic.location=https://icp-api.io/
 ic.canister=4w6mb-vqaaa-aaaab-qac5q-cai
 ```
 
-This application requires Java version 11.
+This application requires Java version 17.
 
 By default this sample is using two Apache Camel routes defined in [kafka-ic-route.yaml](src/resources/routes/kafka-ic-route.yaml) file. The first route reads JSON file and drops it into Kafka topic icTopic. The second route reads messages from Kafka topic icTopic and sends them to the internet Computer canister.
 
@@ -92,7 +92,7 @@ spec:
 NOTE: This sample has also an option to run same routes, but definded using Java Route Builder [ICRouteBuilder](src/main/org/ic4j/samples/camel/ICRouteBuilder.java). To run it, just uncomment line in [CamelMain](src/main/org/ic4j/samples/camel/CamelMain.java) file and comment out property camel.main.routes-include-pattern in [application.properties](src/resources/application.properties) file.
 
 
-Run Maven [build](pom.xml). Modify Java version in the build file if higher than 11.
+Run Maven [build](pom.xml). Modify Java version in the build file if higher than 17.
 
 ```
 mvn package
@@ -101,7 +101,7 @@ mvn package
 Run Java with fat jar
 
 ```
-java -jar target/ic4j-sample-camel-0.6.19.jar
+java -jar target/ic4j-sample-camel-0.6.19.7.jar
 ```
 
 NOTE: This sample also includes route [email-ic-route.yaml](src/resources/routes/email-ic-route.yaml) that reads JSON payload from incoming email message using IMAP component. To test it you can use Apache James email server. To run it from Docker execute this command.
