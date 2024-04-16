@@ -7,8 +7,8 @@ This application requires Java version 17.
 Modify [application.properties](src/main/resources/application.properties) file to set canister location and id.
 
 ```
-ic.location=https://m7sm4-2iaaa-aaaab-qabra-cai.ic0.app/
-ic.canister=7ulr6-faaaa-aaaab-qacwq-cai
+ic.location=https://icp-api.io/
+ic.canister=yhlsk-rqaaa-aaaab-qacfq-cai
 ```
 
 Run Gradle [build](build.gradle). Modify Java version in the build file if higher than 17.
