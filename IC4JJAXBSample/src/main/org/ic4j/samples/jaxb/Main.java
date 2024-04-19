@@ -1,6 +1,5 @@
 package org.ic4j.samples.jaxb;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.Properties;
 

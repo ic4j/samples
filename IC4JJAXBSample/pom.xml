@@ -2,13 +2,13 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.ic4j</groupId>
   <artifactId>ic4j-sample-jaxb</artifactId>
-  <version>0.6.18</version>
+  <version>0.6.19</version>
   <name>IC4JJAXBSample</name>
   <description>This sample is demonstrating how to use the IC with XML JAXB</description>
   
 <properties>
-		<ic4j.agent.version>0.6.18</ic4j.agent.version>
-		<ic4j.candid.version>0.6.18</ic4j.candid.version>
+		<ic4j.agent.version>0.6.19.7</ic4j.agent.version>
+		<ic4j.candid.version>0.6.19.7</ic4j.candid.version>
 		<slf4j.version>2.0.3</slf4j.version>
 		<jaxb.version>2.3.1</jaxb.version>
 		<mainClass>org.ic4j.samples.jaxb.Main</mainClass>
