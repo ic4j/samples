@@ -8,7 +8,7 @@ Modify [application.properties](src/main/resources/application.properties) file 
 
 ```
 ic.location=https://icp-api.io/
-ic.canister=7ulr6-faaaa-aaaab-qacwq-cai
+ic.canister=wzcaa-wqaaa-aaaab-qadhq-cai
 ```
 
 Run Gradle [build](build.gradle). Modify Java version in the build file if higher than 11.
