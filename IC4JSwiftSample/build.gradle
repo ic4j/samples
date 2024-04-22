@@ -30,8 +30,8 @@ jar {
 
 
 dependencies {
-	implementation group: 'org.ic4j', name: 'ic4j-candid', version: '0.6.19'
-	implementation group: 'org.ic4j', name: 'ic4j-agent', version: '0.6.19'	
+	implementation group: 'org.ic4j', name: 'ic4j-candid', version: '0.6.19.7'
+	implementation group: 'org.ic4j', name: 'ic4j-agent', version: '0.6.19.7'	
 	
 	implementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.6'		
 	
@@ -56,7 +56,7 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk15on
 	implementation group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.70'	
 	
-	implementation group: 'com.prowidesoftware', name: 'pw-iso20022', version: 'SRU2022-9.3.4'
+	implementation group: 'com.prowidesoftware', name: 'pw-iso20022', version: 'SRU2023-9.4.4'
 }
 
 

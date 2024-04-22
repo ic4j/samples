@@ -15,7 +15,7 @@ Deploy canister using WASM [swift_backend.wasm](/src/motoko/swift_backend.wasm) 
 Modify [application.properties](src/main/resources/application.properties) file to set canister id.
 
 ```
-ic.location=https://m7sm4-2iaaa-aaaab-qabra-cai.ic0.app/
+ic.location=https://icp-api.io/
 ic.canister=su63m-yyaaa-aaaaa-aaala-cai
 ```
 
@@ -30,7 +30,7 @@ dfx deploy
 Modify [application.properties](src/main/resources/application.properties) file to set canister location and id.
 
 ```
-ic.location=http://127.0.0.1:8000/
+ic.location=ttp://127.0.0.1:4943/
 ic.canister=su63m-yyaaa-aaaaa-aaala-cai
 ```
 
