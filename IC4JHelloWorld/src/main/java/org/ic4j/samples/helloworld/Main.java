@@ -9,7 +9,6 @@ import org.ic4j.agent.AgentBuilder;
 import org.ic4j.agent.ProxyBuilder;
 import org.ic4j.agent.ReplicaTransport;
 import org.ic4j.agent.http.ReplicaApacheHttpTransport;
-import org.ic4j.agent.http.ReplicaOkHttpTransport;
 import org.ic4j.types.Principal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
