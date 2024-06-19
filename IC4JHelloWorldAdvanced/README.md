@@ -20,5 +20,5 @@ gradle build
 Run Java with fat jar
 
 ```
-java -jar build/libs/ic4j-sample-helloworld-advanced-0.6.19.jar
+java -jar build/libs/ic4j-sample-helloworld-advanced-0.7.0.jar
 ```
