@@ -2,14 +2,14 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.ic4j</groupId>
   <artifactId>ic4j-sample-xml</artifactId>
-  <version>0.6.19</version>
+  <version>0.7.0</version>
   <name>IC4JXMLSample</name>
   <description>This sample is demonstrating how to use the IC with XML DOM</description>
   
 <properties>
-		<ic4j.agent.version>0.6.19.7</ic4j.agent.version>
-		<ic4j.candid.version>0.6.19.7</ic4j.candid.version>
-		<slf4j.version>2.0.6</slf4j.version>
+		<ic4j.agent.version>0.7.0</ic4j.agent.version>
+		<ic4j.candid.version>0.7.0</ic4j.candid.version>
+		<slf4j.version>2.0.13</slf4j.version>
 		<mainClass>org.ic4j.samples.xml.Main</mainClass>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>${maven.compiler.source}</maven.compiler.target>

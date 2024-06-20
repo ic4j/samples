@@ -20,5 +20,5 @@ mvn package
 Run Java with fat jar
 
 ```
-java -jar target/ic4j-sample-jaxb-0.6.19.jar
+java -jar target/ic4j-sample-jaxb-0.7.0.jar
 ```
