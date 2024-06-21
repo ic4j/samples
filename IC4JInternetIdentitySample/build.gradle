@@ -1,9 +1,10 @@
 plugins {
-    id 'java' 
+    id 'java'
+	id 'eclipse'
 }
 
 group 'org.ic4j'
-version '0.6.19'
+version '0.7.0'
 
 sourceCompatibility = 1.8
 
@@ -30,34 +31,39 @@ jar {
 
 
 dependencies {
-	implementation group: 'org.ic4j', name: 'ic4j-candid', version: '0.6.19'
-	implementation group: 'org.ic4j', name: 'ic4j-agent', version: '0.6.19'
-	implementation group: 'org.ic4j', name: 'ic4j-internetidentity', version: '0.6.19'	
-	implementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.6'	
+	implementation group: 'org.ic4j', name: 'ic4j-agent', version: '0.7.0'
+	implementation group: 'org.ic4j', name: 'ic4j-candid', version: '0.7.0'
+	implementation group: 'org.ic4j', name: 'ic4j-internetidentity', version: '0.7.0'	
+	implementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.13'	
+	
+	implementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.13'	
+	
+	// https://mvnrepository.com/artifact/commons-codec/commons-codec
+	implementation group: 'commons-codec', name: 'commons-codec', version: '1.17.0'	
 	
 	// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
-	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
-
+	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.14.0'
+	
 	// https://mvnrepository.com/artifact/org.apache.httpcomponents.client5/httpclient5
-	implementation group: 'org.apache.httpcomponents.client5', name: 'httpclient5', version: '5.1.4'
+	implementation group: 'org.apache.httpcomponents.client5', name: 'httpclient5', version: '5.3.1'
 	
 	// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.14.2'
+	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.17.1'
 	
 	// https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jdk8
-	implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.14.2'
+	implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.17.1'
 	
 	// https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-cbor
-	implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-cbor', version: '2.14.2'	
-	
-	// https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on
-	implementation group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.70'
+	implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-cbor', version: '2.17.1'
 
-	// https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk15on
-	implementation group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.70'	
+	// https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk18on
+	implementation group: 'org.bouncycastle', name: 'bcprov-jdk18on', version: '1.78.1'
+
+	// https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk18on
+	implementation group: 'org.bouncycastle', name: 'bcpkix-jdk18on', version: '1.78.1'
 	
 	// https://mvnrepository.com/artifact/info.picocli/picocli
-	implementation group: 'info.picocli', name: 'picocli', version: '4.7.1'
+	implementation group: 'info.picocli', name: 'picocli', version: '4.7.6'
 }
 
 

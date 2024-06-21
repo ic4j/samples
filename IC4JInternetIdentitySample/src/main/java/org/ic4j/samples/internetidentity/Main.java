@@ -7,7 +7,9 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.security.KeyPair;
+import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.security.Security;
 import java.util.Base64;
 import java.util.Optional;
@@ -29,6 +31,7 @@ import org.ic4j.internetidentity.Challenge;
 import org.ic4j.internetidentity.ChallengeResult;
 import org.ic4j.internetidentity.DeviceData;
 import org.ic4j.internetidentity.DeviceProtection;
+import org.ic4j.internetidentity.DeviceWithUsage;
 import org.ic4j.internetidentity.GetDelegationResponse;
 import org.ic4j.internetidentity.IdentityAnchorInfo;
 import org.ic4j.internetidentity.InternetIdentityService;
@@ -107,7 +110,7 @@ class Main implements Callable<Integer> {
 
 			InternetIdentityService internetIdentityService = InternetIdentityService.create(agent, env);
 
-			sessionKey = identity.derEncodedPublickey;
+			sessionKey = identity.getPublicKey();
 
 			CompletableFuture<Challenge> challengeResponse = internetIdentityService.createChallenge();
 
@@ -195,10 +198,10 @@ class Main implements Callable<Integer> {
 
 			IdentityAnchorInfo identityAnchorInfoResponse = internetIdentityService.getAnchorInfo(userNumber).get();
 
-			deviceData = identityAnchorInfoResponse.devices;
+			DeviceWithUsage[]deviceDataWithUsage  = identityAnchorInfoResponse.devices;
 
-			for (int i = 0; i < deviceData.length; i++)
-				LOG.info(deviceData[i].alias);
+			for (int i = 0; i < deviceDataWithUsage.length; i++)
+				LOG.info(deviceDataWithUsage[i].alias);
 
 			internetIdentityService.remove(userNumber, device.pubkey);
 
@@ -221,14 +224,15 @@ class Main implements Callable<Integer> {
 
 		KeyPair keyPair;
 		try {
-			keyPair = InternetIdentityService.generateSessionKey();
+			keyPair = KeyPairGenerator.getInstance("Ed25519",BouncyCastleProvider.PROVIDER_NAME).generateKeyPair();
+
 			Identity identity = BasicIdentity.fromKeyPair(keyPair);
 
 			InternetIdentityService.savePrivateKey(keyPair.getPrivate(), this.pemFile);
 
 			LOG.info("Created identity PEM file " + this.pemFile);
 
-		} catch (NoSuchAlgorithmException | IOException e) {
+		} catch (NoSuchAlgorithmException | IOException | NoSuchProviderException e) {
 			LOG.error(e.getLocalizedMessage(), e);
 		}
 	}
@@ -301,7 +305,7 @@ class Main implements Callable<Integer> {
 		try {
 			InternetIdentityService internetIdentityService = this.createInternetIdentityService();
 
-			KeyPair keyPair = InternetIdentityService.generateSessionKey();
+			KeyPair keyPair = KeyPairGenerator.getInstance("Ed25519",BouncyCastleProvider.PROVIDER_NAME).generateKeyPair();
 			
 			if(this.devicePemFile == null)				
 				this.devicePemFile = this.deviceAlias + ".pem";
@@ -353,11 +357,14 @@ class Main implements Callable<Integer> {
 		try {
 			InternetIdentityService internetIdentityService = this.createInternetIdentityService();
 
-			DeviceData[] deviceData = internetIdentityService.lookup(this.userId);
+			IdentityAnchorInfo identityAnchorInfoResponse = internetIdentityService.getAnchorInfo(this.userId).get();
+
+			DeviceWithUsage[] deviceDataWithUsage = identityAnchorInfoResponse.devices;
 
 			LOG.info("User Id:" + this.userId);	
-			for (int i = 0; i < deviceData.length; i++)
-				LOG.info("Device:" + deviceData[i].alias);	
+			
+			for (int i = 0; i < deviceDataWithUsage.length; i++)
+				LOG.info(deviceDataWithUsage[i].alias);
 
 		} catch (Exception e) {
 			LOG.error(e.getLocalizedMessage(), e);
@@ -391,6 +398,8 @@ class Main implements Callable<Integer> {
 		Agent agent = new AgentBuilder().transport(transport).identity(identity).build();
 		
 		agent.fetchRootKey();
+		
+		agent.setVerify(false);
 
 		return InternetIdentityService.create(agent, env);
 	}
