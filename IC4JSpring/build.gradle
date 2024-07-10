@@ -1,0 +1,35 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.1'
+	id 'io.spring.dependency-management' version '1.1.5'
+}
+
+group = 'org.ic4j.samples.spring'
+version = '0.7.1'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation('org.ic4j:ic4j-agent:0.7.1') {
+        exclude group: 'org.slf4j', module: 'slf4j-simple'
+    }
+     implementation('org.ic4j:ic4j-candid:0.7.1') {
+        exclude group: 'org.slf4j', module: 'slf4j-simple' 
+    }
+	implementation 'org.ic4j:ic4j-spring:0.7.1'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
