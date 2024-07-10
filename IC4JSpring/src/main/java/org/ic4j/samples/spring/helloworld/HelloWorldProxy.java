@@ -14,7 +14,7 @@ import org.ic4j.candid.annotations.Name;
 import org.ic4j.candid.types.Type;
 
 @Agent(identity = @Identity(type = IdentityType.ANONYMOUS), transport = @Transport(url = "https://icp-api.io/"))
-@Canister("6mce5-laaaa-aaaab-qacsq-cai")
+@Canister("3z2ve-waaaa-aaaab-qacmq-cai")
 public interface HelloWorldProxy {
 	
 	@UPDATE
