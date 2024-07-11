@@ -1,6 +1,6 @@
 # Java Spring application sample calling Dfinity HelloWorld Canister.
 
-To install Dapp canister, use either local [Dfinity SDK](https://smartcontracts.org/docs/quickstart/quickstart-intro.html) or remote [Motoko Playground](https://m7sm4-2iaaa-aaaab-qabra-cai.raw.ic0.app/).
+To install Dapp canister, use Motoko code [main.mo](src/main.mo) either on local [Dfinity SDK](https://smartcontracts.org/docs/quickstart/quickstart-intro.html) or remote [Motoko Playground](https://m7sm4-2iaaa-aaaab-qabra-cai.raw.ic0.app/).
 
 This application requires Java version 17.
 
