@@ -39,8 +39,8 @@ jar {
 
 
 dependencies {
-	implementation group: 'org.ic4j', name: 'ic4j-agent', version: '0.7.0'		
-	implementation group: 'org.ic4j', name: 'ic4j-candid', version: '0.7.0'	
+	implementation group: 'org.ic4j', name: 'ic4j-agent', version: '0.7.1'		
+	implementation group: 'org.ic4j', name: 'ic4j-candid', version: '0.7.1'	
 	
 	implementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.13'		
 	
