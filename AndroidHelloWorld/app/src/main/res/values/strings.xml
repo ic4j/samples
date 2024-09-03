@@ -2,6 +2,6 @@
     <string name="app_name">Hello World</string>
     <string name="edit_message">Enter a message</string>
     <string name="button_send">Send</string>
-    <string name="url">https://m7sm4-2iaaa-aaaab-qabra-cai.ic0.app</string>
-    <string name="canister">yvnft-5aaaa-aaaab-qacgq-cai</string>
+    <string name="url">https://icp-api.io</string>
+    <string name="canister">ury7f-eqaaa-aaaab-qadlq-cai</string>
 </resources>

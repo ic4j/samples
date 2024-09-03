@@ -4,14 +4,14 @@ plugins {
 }
 
 android {
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "org.ic4j.samples.android.helloworld"
         minSdk 27
-        targetSdk 33
+        targetSdk 34
         versionCode 1
-        versionName "0.6.19"
+        versionName "0.7.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -30,20 +30,22 @@ android {
         jvmTarget = '1.8'
     }
     namespace 'org.ic4j.samples.android.helloworld'
+
+    packagingOptions {
+        resources.excludes.add("META-INF/*.md")
+        resources.excludes.add("META-INF/versions/9/OSGI-INF/MANIFEST.MF")
+    }
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'commons-codec:commons-codec:1.15'
-    implementation 'org.ic4j:ic4j-candid:0.6.19'
-    implementation('org.ic4j:ic4j-agent:0.6.19.1') {
-        exclude group: 'org.apache.httpcomponents.client5', module: 'httpclient5'
-    }
-    implementation 'org.slf4j:slf4j-api:2.0.6'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation 'commons-codec:commons-codec:1.17.1'
+    implementation 'org.ic4j:ic4j-candid:0.7.2'
+    implementation 'org.ic4j:ic4j-agent:0.7.2'
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    implementation 'org.slf4j:slf4j-api:2.0.16'
+
 }
