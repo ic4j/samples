@@ -5,12 +5,11 @@ import java.util.concurrent.CompletableFuture;
 import org.ic4j.agent.annotations.Waiter;
 import org.ic4j.agent.annotations.UPDATE;
 import org.ic4j.agent.annotations.Argument;
-import org.ic4j.agent.annotations.QUERY;
 import org.ic4j.candid.annotations.Deserializer;
 import org.ic4j.candid.annotations.Name;
 import org.ic4j.candid.annotations.Serializer;
-import org.ic4j.candid.jaxb.JAXBDeserializer;
-import org.ic4j.candid.jaxb.JAXBSerializer;
+import org.ic4j.candid.jaxb.javax.JAXBDeserializer;
+import org.ic4j.candid.jaxb.javax.JAXBSerializer;
 import org.ic4j.candid.types.Type;
 
 public interface LoanProxy {

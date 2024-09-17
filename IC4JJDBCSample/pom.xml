@@ -7,9 +7,9 @@
   <description>This sample is demonstrating how to use the IC with Java JDBC</description>
   
 <properties>
-		<ic4j.agent.version>0.7.0</ic4j.agent.version>
-		<ic4j.candid.version>0.7.0</ic4j.candid.version>
-		<slf4j.version>2.0.13</slf4j.version>
+		<ic4j.agent.version>0.7.4</ic4j.agent.version>
+		<ic4j.candid.version>0.7.4</ic4j.candid.version>
+		<slf4j.version>2.0.16</slf4j.version>
 		<mainClass>org.ic4j.samples.jdbc.Main</mainClass>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
@@ -25,12 +25,6 @@
 			<groupId>org.ic4j</groupId>
 			<artifactId>ic4j-agent</artifactId>
 			<version>${ic4j.agent.version}</version>
-			<exclusions>
-            <exclusion>
-                <groupId>com.squareup.okhttp3</groupId>
-                <artifactId>okhttp</artifactId>
-            </exclusion>
-        </exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.ic4j</groupId>
