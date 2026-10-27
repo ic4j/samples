@@ -1,6 +1,12 @@
 # IC4J Samples
 Samples demonstrating different usage of IC4J Agent libraries.
 
+## Offline local verification
+
+Run `scripts/verify-local-canisters.sh` to compile the checked-in Motoko actors, deploy them to a disposable ICP CLI managed network bound to loopback, and run local UPDATE/QUERY smoke calls. The workflow keeps replica state under a new temporary directory, asks ICP CLI to stop that network, and removes the temporary directory only after confirming its loopback port is closed. It does not use sample `application.properties` or call `dfx start --clean`.
+
+See [OFFLINE_VERIFICATION.md](OFFLINE_VERIFICATION.md) for tool versions, per-sample coverage, exact temporary canister IDs, and limits. DFINITY currently marks DFX as deprecated; the workflow uses the installed DFX compiler to build and ICP CLI to run the managed local network.
+
 [IC4JHelloWorld](IC4JHelloWorld)
 Java sample demonstrating call to Dfinity HelloWorld Dapp.
 
