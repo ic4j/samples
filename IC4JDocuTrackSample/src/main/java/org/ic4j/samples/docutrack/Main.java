@@ -6,8 +6,10 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.security.Security;
 import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
@@ -150,7 +152,7 @@ public class Main {
 
 			LOG.info("Created DocuTrack user " + this.userName);
 
-		} catch (NoSuchAlgorithmException | IOException | URISyntaxException e) {
+		} catch (NoSuchAlgorithmException | NoSuchProviderException | InvalidAlgorithmParameterException | IOException | URISyntaxException e) {
 			LOG.error(e.getLocalizedMessage(), e);
 		}
 	}
