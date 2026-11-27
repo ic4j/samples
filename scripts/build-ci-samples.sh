@@ -5,7 +5,13 @@ set -euo pipefail
 # Tracked example keys are not used or packaged in the CI checkout.
 git ls-files -z -- '*.pem' | xargs -0 -r rm -f --
 if [[ "$TOOL" == android ]]; then
-  sdkmanager 'platforms;android-34' 'build-tools;35.0.0'
+  : "${ANDROID_HOME:?GitHub runner does not declare its Android SDK}"
+  if [[ ! -f "$ANDROID_HOME/platforms/android-34/android.jar" || ! -x "$ANDROID_HOME/build-tools/35.0.0/aapt2" ]]; then
+    # The hosted image does not put its command-line tools on PATH.
+    sdkmanager="$(find "$ANDROID_HOME/cmdline-tools" -type f -path '*/bin/sdkmanager' -print -quit)"
+    test -x "$sdkmanager"
+    "$sdkmanager" --sdk_root="$ANDROID_HOME" 'platforms;android-34' 'build-tools;35.0.0'
+  fi
 fi
 read -r -a projects <<< "$SAMPLES"
 failed=()
