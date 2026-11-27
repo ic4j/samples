@@ -117,3 +117,40 @@ jobs:
       - run: bash scripts/install-ci-icp-tools.sh
       - name: Compile, deploy and exercise temporary canisters
         run: bash scripts/verify-local-canisters.sh
+
+  kafka:
+    name: Kafka to LoanProvider (local PocketIC)
+    needs: dependencies
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+        with:
+          name: ic4j-085-maven
+          path: ${{ runner.temp }}/ic4j-maven
+      - name: Build Camel sample with pinned dependencies
+        env:
+          CI_MAVEN_REPO: ${{ runner.temp }}/ic4j-maven
+          SAMPLES: IC4JCamelSample
+          TOOL: maven
+        run: bash scripts/build-ci-samples.sh
+      - run: bash scripts/install-ci-icp-tools.sh
+      - run: bash scripts/install-ci-kafka.sh
+      - name: Verify file to Kafka to local LoanProvider
+        env:
+          KAFKA_REPORTS: ${{ runner.temp }}/kafka-reports
+        run: bash scripts/verify-local-canisters.sh kafka
+      - if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: kafka-smoke
+          retention-days: 7
+          if-no-files-found: ignore
+          path: ${{ runner.temp }}/kafka-reports/

@@ -5,10 +5,17 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+MODE="${1:-all}"
+case "$MODE" in
+  all|kafka) ;;
+  *) echo "Usage: $0 [all|kafka]" >&2; exit 2 ;;
+esac
+export MODE
 WORK="$(mktemp -d "${TMPDIR:-/tmp}/ic4j-samples-local.XXXXXX")"
 NETWORK_STARTED=0
 export ICP_HOME="$WORK/icp-home"
 export DFX_CONFIG_ROOT="$WORK/dfx-config"
+export DO_NOT_TRACK=1
 
 port_is_open() {
   python3 - "$PORT" <<'PY'
@@ -89,7 +96,7 @@ PY
 )"
 
 python3 - "$ROOT" "$WORK" "$PORT" <<'PY'
-import json, shutil, sys
+import json, os, shutil, sys
 from pathlib import Path
 root, work, port = Path(sys.argv[1]), Path(sys.argv[2]), int(sys.argv[3])
 # Sources intentionally limited to checked-in sample Motoko actors.
@@ -111,6 +118,8 @@ items = {
     'springHello': 'IC4JSpringSample/src/main.mo',
     'xmlLoan': 'IC4JXMLSample/src/main.mo',
 }
+if os.environ['MODE'] == 'kafka':
+    items = {'camelLoan': items['camelLoan']}
 dfx = work / 'dfx'
 dfx.mkdir(parents=True)
 canisters = {}
@@ -166,13 +175,22 @@ icp network ping local --project-root-override "$WORK/icp" >/dev/null
 
 # Install each compiled actor on an unlinked temporary canister. Every operation
 # uses the local network name; no network URL is read from sample properties.
-for name in webSocketHello camelLoan swiftBackend androidHello ic4jHello advancedHello identityHello imageStore jaxbLoan jdbcCredit gsonLoan jacksonLoan java17Loan pojoLoan springHello xmlLoan; do
+actors=(webSocketHello camelLoan swiftBackend androidHello ic4jHello advancedHello identityHello imageStore jaxbLoan jdbcCredit gsonLoan jacksonLoan java17Loan pojoLoan springHello xmlLoan)
+if [[ "$MODE" == kafka ]]; then actors=(camelLoan); fi
+for name in "${actors[@]}"; do
   id="$(icp canister create --identity anonymous --detached --network local --project-root-override "$WORK/icp" --quiet)"
   printf '%s\n' "$id" > "$WORK/ids/$name"
   wasm="$WORK/dfx/.dfx/local/canisters/$name/$name.wasm"
   icp canister install --identity anonymous "$id" --wasm "$wasm" --mode install --yes --network local --project-root-override "$WORK/icp" >/dev/null
   printf 'deployed %-16s %s\n' "$name" "$id"
 done
+
+if [[ "$MODE" == kafka ]]; then
+  python3 "$ROOT/scripts/verify-kafka-route.py" \
+    "$WORK/icp" "$PORT" "$(cat "$WORK/ids/camelLoan")" \
+    "$WORK/dfx/.dfx/local/canisters/camelLoan/camelLoan.did"
+  exit
+fi
 
 call() {
   local name="$1" method="$2" args="$3" mode="${4:-}"
