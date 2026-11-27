@@ -140,7 +140,13 @@ icp.mkdir(parents=True)
 PY
 
 # Compile only; deployment below always targets the explicit managed `local` network.
-(cd "$WORK/dfx" && dfx build --all --check --network local)
+(
+  cd "$WORK/dfx"
+  # Isolate even DFX's automatically generated key and never print its seed.
+  export DFX_CONFIG_ROOT="$WORK/dfx-config"
+  dfx identity whoami </dev/null >/dev/null 2>&1
+  dfx build --all --check --network local
+)
 mkdir -p "$WORK/ids"
 
 NETWORK_STARTED=1

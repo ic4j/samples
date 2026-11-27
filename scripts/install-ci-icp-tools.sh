@@ -17,6 +17,15 @@ tar -xJf "$work/icp.tar.xz" -C "$work/icp"
 icp="$(find "$work/icp" -type f -name icp -print -quit)"
 test -n "$icp"
 install -m 0755 "$icp" "$work/bin/icp"
+launcher=v16.1.0-2026-10-16-03-29
+fetch "https://github.com/dfinity/icp-cli-network-launcher/releases/download/$launcher/icp-cli-network-launcher-x86_64-linux-$launcher.tar.gz" \
+  3cc832995318ad9f0a8392c6c7b0b7cf59ed498ad4eb2fd51ff0d34cb7735c01 "$work/launcher.tgz"
+mkdir "$work/launcher"
+tar -xzf "$work/launcher.tgz" --strip-components=1 -C "$work/launcher"
+test -x "$work/launcher/icp-cli-network-launcher"
+test -x "$work/launcher/pocket-ic"
+printf 'ICP_CLI_NETWORK_LAUNCHER_PATH=%s\n' "$work/launcher/icp-cli-network-launcher" >> "$GITHUB_ENV"
+
 "$work/bin/dfx" --version
 "$work/bin/icp" --version
 printf '%s\n' "$work/bin" >> "$GITHUB_PATH"

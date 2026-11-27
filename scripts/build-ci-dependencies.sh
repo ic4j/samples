@@ -19,6 +19,8 @@ while IFS=$'\t' read -r name sha; do
   if [[ "$name" == ic4j-camel ]]; then
     mvn --batch-mode --no-transfer-progress -f "$dir/pom.xml" \
       -Dmaven.repo.local="$repo" -pl ic4j-camel-core -am -Dmaven.test.skip=true clean install
+  elif [[ "$name" == ic4j-candid ]]; then
+    gradle --no-daemon -p "$dir" -Dmaven.repo.local="$repo" -PrunJavacc=true publishToMavenLocal
   else
     gradle --no-daemon -p "$dir" -Dmaven.repo.local="$repo" publishToMavenLocal
   fi
