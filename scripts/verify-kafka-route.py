@@ -136,11 +136,10 @@ camel.main.routes-include-pattern=routes/kafka-ic-route.camel.yaml
                 row for row in rows
                 if row[:3] == [GROUP, TOPIC, "0"]
                 and len(row) >= 6 and all(n.isdecimal() for n in row[3:6])
+                and row[3:6] == ["1", "1", "0"]
             ] or None
 
         (row,) = await_result("committed Kafka offset", 90, committed_offset, processes)
-        if row[3:6] != ["1", "1", "0"]:
-            raise RuntimeError(f"Expected one produced and consumed record with zero lag: {row[:6]}")
 
         def loan_offer():
             value = offers()
