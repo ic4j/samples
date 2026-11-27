@@ -60,6 +60,8 @@ public class Main {
 		ReplicaTransport transport = ReplicaJavaHttpTransport.create(icLocation);
 		Agent agent = new AgentBuilder().transport(transport).build();
 		
+			if (Boolean.parseBoolean(env.getProperty("ic.fetchRootKey", "false")))
+				agent.fetchRootKey();
 		Map<Label,IDLType> offerRecord = new TreeMap<Label,IDLType>();
 		offerRecord.put(Label.createNamedLabel("providerid"), IDLType.createType(Type.PRINCIPAL));
 		offerRecord.put(Label.createNamedLabel("providername"), IDLType.createType(Type.TEXT));

@@ -31,6 +31,8 @@ public class Main {
 
 			ReplicaTransport transport = ReplicaApacheHttpTransport.create(icLocation);
 			Agent agent = new AgentBuilder().transport(transport).build();
+			if (Boolean.parseBoolean(env.getProperty("ic.fetchRootKey", "false")))
+				agent.fetchRootKey();
 			
 			HelloWorldProxy helloWorldProxy = ProxyBuilder.create(agent, Principal.fromString(icCanister))
 					.getProxy(HelloWorldProxy.class);

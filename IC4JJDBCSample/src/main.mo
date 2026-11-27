@@ -1,6 +1,6 @@
 import Debug "mo:base/Debug";
 
-actor class CreditCheck() = this {
+persistent actor class CreditCheck() = this {
 
    // Credit Check
   public type Credit = {

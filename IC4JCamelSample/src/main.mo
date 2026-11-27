@@ -4,7 +4,7 @@ import Buffer "mo:base/Buffer";
 import Map "mo:base/HashMap";
 import Debug "mo:base/Debug";
 
-actor class LoanProvider() = this {
+persistent actor class LoanProvider() = this {
       // Loan Application
   public type LoanApplication = {
     id: Nat;
@@ -28,11 +28,11 @@ actor class LoanProvider() = this {
 
     type Offers<LoanOffer> = Buffer.Buffer<LoanOffer>;
 
-    stable var counter : Nat = 0;
+    var counter : Nat = 0;
 
-    let offers = Map.HashMap<Principal, Offers<LoanOffer>>(0, Principal.equal, Principal.hash); 
+    transient let offers = Map.HashMap<Principal, Offers<LoanOffer>>(0, Principal.equal, Principal.hash);
 
-    public shared (msg) func apply(input : LoanApplication) : async LoanOffer {
+    public shared (msg) func apply(_input : LoanApplication) : async LoanOffer {
         counter += 1;
 
         Debug.print("Loan Application for user " #Principal.toText(msg.caller));
@@ -59,7 +59,7 @@ actor class LoanProvider() = this {
 
         switch userOffers {
             case (null) { return [] };
-            case (?userOffer) { return userOffer.toArray() };
+            case (?userOffer) { return Buffer.toArray(userOffer) };
         };
     };           
 }

@@ -1,7 +1,7 @@
 import FIToFICustomerCreditTransferV07Types "FIToFICustomerCreditTransferV07Types";
 import FinancialInstitutionCreditTransferV09Types "FinancialInstitutionCreditTransferV09Types";
 
-actor {
+persistent actor {
   public func reversalRequest(request : FIToFICustomerCreditTransferV07Types.FIToFICustomerCreditTransferV07) : async FIToFICustomerCreditTransferV07Types.FIToFICustomerCreditTransferV07 {
     return request;
   };

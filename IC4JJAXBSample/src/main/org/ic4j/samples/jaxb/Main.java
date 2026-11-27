@@ -32,6 +32,8 @@ public class Main {
 
 		ReplicaTransport transport = ReplicaJavaHttpTransport.create(icLocation);
 		Agent agent = new AgentBuilder().transport(transport).build();
+		if (Boolean.parseBoolean(env.getProperty("ic.fetchRootKey", "false")))
+			agent.fetchRootKey();
 		
 		LoanProxy loanProxy = ProxyBuilder.create(agent, Principal.fromString(icCanister))
 				.getProxy(LoanProxy.class);
