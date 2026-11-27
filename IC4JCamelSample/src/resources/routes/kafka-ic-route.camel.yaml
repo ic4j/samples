@@ -1,0 +1,39 @@
+- route:
+    id: kafka
+    from:
+      uri: file:src/data?noop=true
+      steps:
+        - setHeader:
+            name: kafka.KEY
+            expression:
+              constant:
+                expression: Camel
+        - to:
+            uri: "kafka:{{kafka.topic}}?brokers={{kafka.brokers}}"
+- route:
+    id: ic
+    from:
+      uri: "kafka:{{kafka.topic}}?brokers={{kafka.brokers}}&groupId={{kafka.groupId}}&autoOffsetReset=earliest"
+      steps:
+        - log:
+            message: ${body}
+        - unmarshal:
+            json:
+              library: Jackson
+              unmarshalType: org.ic4j.samples.camel.LoanApplication
+        - to:
+            uri: ic:update
+            parameters:
+              canisterId: "{{ic.canister}}"
+              identityType: anonymous
+              method: apply
+              url: "{{ic.location}}"
+              outClass: org.ic4j.samples.camel.LoanOffer
+              transportType: java
+              fetchRootKey: "{{ic.fetchRootKey}}"
+            description: Call LoanProvider.apply
+        - marshal:
+            json:
+              library: Jackson
+        - log:
+            message: ${body}
