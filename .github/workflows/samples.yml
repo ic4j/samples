@@ -116,7 +116,4 @@ jobs:
           persist-credentials: false
       - run: bash scripts/install-ci-icp-tools.sh
       - name: Compile, deploy and exercise temporary canisters
-        env:
-          DFX_CONFIG_ROOT: ${{ runner.temp }}/ic4j-dfx-config
-          XDG_CONFIG_HOME: ${{ runner.temp }}/ic4j-config
         run: bash scripts/verify-local-canisters.sh

@@ -7,6 +7,8 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 WORK="$(mktemp -d "${TMPDIR:-/tmp}/ic4j-samples-local.XXXXXX")"
 NETWORK_STARTED=0
+export ICP_HOME="$WORK/icp-home"
+export DFX_CONFIG_ROOT="$WORK/dfx-config"
 
 port_is_open() {
   python3 - "$PORT" <<'PY'
@@ -143,7 +145,6 @@ PY
 (
   cd "$WORK/dfx"
   # Isolate even DFX's automatically generated key and never print its seed.
-  export DFX_CONFIG_ROOT="$WORK/dfx-config"
   dfx identity whoami </dev/null >/dev/null 2>&1
   dfx build --all --check --network local
 )
@@ -166,10 +167,10 @@ icp network ping local --project-root-override "$WORK/icp" >/dev/null
 # Install each compiled actor on an unlinked temporary canister. Every operation
 # uses the local network name; no network URL is read from sample properties.
 for name in webSocketHello camelLoan swiftBackend androidHello ic4jHello advancedHello identityHello imageStore jaxbLoan jdbcCredit gsonLoan jacksonLoan java17Loan pojoLoan springHello xmlLoan; do
-  id="$(icp canister create --detached --network local --project-root-override "$WORK/icp" --quiet)"
+  id="$(icp canister create --identity anonymous --detached --network local --project-root-override "$WORK/icp" --quiet)"
   printf '%s\n' "$id" > "$WORK/ids/$name"
   wasm="$WORK/dfx/.dfx/local/canisters/$name/$name.wasm"
-  icp canister install "$id" --wasm "$wasm" --mode install --yes --network local --project-root-override "$WORK/icp" >/dev/null
+  icp canister install --identity anonymous "$id" --wasm "$wasm" --mode install --yes --network local --project-root-override "$WORK/icp" >/dev/null
   printf 'deployed %-16s %s\n' "$name" "$id"
 done
 
@@ -178,9 +179,9 @@ call() {
   local id
   id="$(cat "$WORK/ids/$name")"
   if [[ "$mode" == query ]]; then
-    icp canister call "$id" "$method" "$args" --query --candid "$WORK/dfx/.dfx/local/canisters/$name/$name.did" --network local --project-root-override "$WORK/icp" >/dev/null
+    icp canister call --identity anonymous "$id" "$method" "$args" --query --candid "$WORK/dfx/.dfx/local/canisters/$name/$name.did" --network local --project-root-override "$WORK/icp" >/dev/null
   else
-    icp canister call "$id" "$method" "$args" --candid "$WORK/dfx/.dfx/local/canisters/$name/$name.did" --network local --project-root-override "$WORK/icp" >/dev/null
+    icp canister call --identity anonymous "$id" "$method" "$args" --candid "$WORK/dfx/.dfx/local/canisters/$name/$name.did" --network local --project-root-override "$WORK/icp" >/dev/null
   fi
   printf 'passed   %-16s %s\n' "$name" "$method"
 }
