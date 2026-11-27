@@ -3,8 +3,8 @@ import Text "mo:base/Text";
 import Blob "mo:base/Blob";
 import Debug "mo:base/Debug";
 
-actor {
-  let images = Map.HashMap<Text, Blob>(0, Text.equal, Text.hash);
+persistent actor {
+  transient let images = Map.HashMap<Text, Blob>(0, Text.equal, Text.hash);
   
   public func add(name : Text, image : [Nat8]) : async Text {
     let blob : Blob = Blob.fromArray(image);

@@ -1,0 +1,119 @@
+name: IC4J Samples
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: samples-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dependencies:
+    name: Build pinned IC4J 0.8.5 modules
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5
+        with:
+          gradle-version: '8.14'
+          cache-disabled: true
+      - run: bash scripts/build-ci-dependencies.sh
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: ic4j-085-maven
+          path: ${{ runner.temp }}/ic4j-sample-artifacts/
+          if-no-files-found: error
+          retention-days: 7
+
+  samples:
+    name: ${{ matrix.name }} (Java ${{ matrix.java }})
+    needs: dependencies
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Maven samples
+            java: '21'
+            tool: maven
+            projects: IC4JCamelSample IC4JGsonSample IC4JJAXBSample IC4JJDBCSample IC4JJacksonSample IC4JWSSample IC4JXMLSample
+          - name: Gradle samples
+            java: '21'
+            tool: gradle
+            projects: IC4JBitcoinSample IC4JDocuTrackSample IC4JHelloWorld IC4JHelloWorldAdvanced IC4JIdentitySample IC4JImageSample IC4JInternetIdentitySample IC4JJava17Sample IC4JOrigynNFTSample IC4JPojoSample IC4JSpring IC4JSpringSample IC4JSwiftSample
+          - name: Android APK and host tests
+            java: '21'
+            tool: android
+            projects: AndroidHelloWorld
+          - name: Java 8 smoke
+            java: '8'
+            tool: gradle
+            projects: IC4JHelloWorld IC4JHelloWorldAdvanced
+          - name: Java 11 transport
+            java: '11'
+            tool: maven
+            projects: IC4JGsonSample IC4JJAXBSample IC4JJDBCSample IC4JXMLSample
+          - name: Java 17 transport
+            java: '17'
+            tool: gradle
+            projects: IC4JJava17Sample
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+      - if: matrix.tool != 'maven'
+        uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5
+        with:
+          gradle-version: ${{ matrix.tool == 'android' && '8.13' || '8.14' }}
+          cache-disabled: true
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+        with:
+          name: ic4j-085-maven
+          path: ${{ runner.temp }}/ic4j-maven
+      - name: Build and run offline tests
+        env:
+          CI_MAVEN_REPO: ${{ runner.temp }}/ic4j-maven
+          SAMPLES: ${{ matrix.projects }}
+          TOOL: ${{ matrix.tool }}
+        run: bash scripts/build-ci-samples.sh
+      - if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: sample-reports-${{ strategy.job-index }}
+          retention-days: 7
+          if-no-files-found: ignore
+          path: |
+            */target/surefire-reports/TEST-*.xml
+            */target/failsafe-reports/TEST-*.xml
+            */build/test-results/test/TEST-*.xml
+            AndroidHelloWorld/app/build/test-results/testDebugUnitTest/TEST-*.xml
+
+  pocketic:
+    name: Local PocketIC canister smoke
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - run: bash scripts/install-ci-icp-tools.sh
+      - name: Compile, deploy and exercise temporary canisters
+        run: bash scripts/verify-local-canisters.sh

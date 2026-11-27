@@ -46,6 +46,8 @@ public class Main {
 
 			ReplicaTransport transport = ReplicaApacheHttpTransport.create(icLocation);
 			Agent agent = new AgentBuilder().transport(transport).identity(identity).build();
+			if (Boolean.parseBoolean(env.getProperty("ic.fetchRootKey", "false")))
+				agent.fetchRootKey();
 			
 			HelloWorldProxy helloWorldProxy = ProxyBuilder.create(agent, Principal.fromString(icCanister))
 					.getProxy(HelloWorldProxy.class);
@@ -63,6 +65,8 @@ public class Main {
 			identity = BasicIdentity.fromPEMFile(sourceReader);
 			
 			agent = new AgentBuilder().transport(transport).identity(identity).build();
+			if (Boolean.parseBoolean(env.getProperty("ic.fetchRootKey", "false")))
+				agent.fetchRootKey();
 			
 			helloWorldProxy = ProxyBuilder.create(agent, Principal.fromString(icCanister))
 					.getProxy(HelloWorldProxy.class);
@@ -80,6 +84,8 @@ public class Main {
 			identity = Secp256k1Identity.fromPEMFile(sourceReader);
 			
 			agent = new AgentBuilder().transport(transport).identity(identity).build();
+			if (Boolean.parseBoolean(env.getProperty("ic.fetchRootKey", "false")))
+				agent.fetchRootKey();
 			
 			helloWorldProxy = ProxyBuilder.create(agent, Principal.fromString(icCanister))
 					.getProxy(HelloWorldProxy.class);

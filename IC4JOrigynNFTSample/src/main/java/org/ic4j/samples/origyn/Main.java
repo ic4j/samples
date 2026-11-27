@@ -45,7 +45,8 @@ public class Main {
 		ReplicaTransport transport = ReplicaApacheHttpTransport.create(icLocation);
 		Agent agent = new AgentBuilder().transport(transport).identity(identity).build();
 		
-		agent.fetchRootKey();
+		if (Boolean.parseBoolean(env.getProperty("ic.fetchRootKey", "false")))
+			agent.fetchRootKey();
 
 		Account account = Account.principal;
 		account.principalValue = Principal.fromString("6i6da-t3dfv-vteyg-v5agl-tpgrm-63p4y-t5nmm-gi7nl-o72zu-jd3sc-7qe");

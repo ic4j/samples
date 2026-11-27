@@ -50,6 +50,8 @@ public class Main {
 
 		ReplicaTransport transport = ReplicaJavaHttpTransport.create(icLocation);
 		Agent agent = new AgentBuilder().transport(transport).identity(identity).build();
+		if (Boolean.parseBoolean(env.getProperty("ic.fetchRootKey", "false")))
+			agent.fetchRootKey();
 
 		LoanApplication loanApplication = new LoanApplication();
 		loanApplication.firstName = "John";

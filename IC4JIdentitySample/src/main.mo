@@ -1,8 +1,8 @@
 import Principal "mo:base/Principal";
 import Debug "mo:base/Debug";
 
-actor {
-    stable var name = "Me";
+persistent actor {
+    var name = "Me";
 
     type Result = {
         #Ok : Principal;

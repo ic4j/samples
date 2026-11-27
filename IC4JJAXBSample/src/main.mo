@@ -2,7 +2,7 @@ import Principal "mo:base/Principal";
 import Time "mo:base/Time";
 import Debug "mo:base/Debug";
 
-actor class LoanProvider() = this {
+persistent actor class LoanProvider() = this {
       // Loan Application
   public type LoanApplication = {
     id: Int;

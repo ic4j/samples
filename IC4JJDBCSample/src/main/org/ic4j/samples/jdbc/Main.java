@@ -80,6 +80,8 @@ public class Main {
 
 			ReplicaTransport transport = ReplicaJavaHttpTransport.create(icLocation);
 			Agent agent = new AgentBuilder().transport(transport).build();
+			if (Boolean.parseBoolean(env.getProperty("ic.fetchRootKey", "false")))
+				agent.fetchRootKey();
 
 			IDLValue idlValue = IDLValue.create(result, JDBCSerializer.create().array(false));
 			List<IDLValue> idlArgs = new ArrayList<IDLValue>();

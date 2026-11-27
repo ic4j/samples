@@ -44,6 +44,8 @@ public class Main {
 			Identity identity = BasicIdentity.fromKeyPair(keyPair);
 			
 			Agent agent = new AgentBuilder().transport(transport).identity(identity).build();			
+			if (Boolean.parseBoolean(env.getProperty("ic.fetchRootKey", "false")))
+				agent.fetchRootKey();
 			
 			HelloWorldProxy helloWorldProxy = ProxyBuilder.create(agent, Principal.fromString(icCanister))
 					.getProxy(HelloWorldProxy.class);

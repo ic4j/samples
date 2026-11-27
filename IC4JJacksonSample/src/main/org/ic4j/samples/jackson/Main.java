@@ -14,7 +14,7 @@ import org.ic4j.agent.AgentBuilder;
 import org.ic4j.agent.ReplicaTransport;
 import org.ic4j.agent.UpdateBuilder;
 import org.ic4j.agent.Waiter;
-import org.ic4j.agent.http.ReplicaJavaHttpTransport;
+import org.ic4j.agent.http.ReplicaApacheHttpTransport;
 import org.ic4j.candid.jackson.JacksonDeserializer;
 import org.ic4j.candid.jackson.JacksonSerializer;
 import org.ic4j.candid.parser.IDLArgs;
@@ -48,8 +48,10 @@ public class Main {
 		String icLocation = env.getProperty("ic.location");
 		String icCanister = env.getProperty("ic.canister");
 
-		ReplicaTransport transport = ReplicaJavaHttpTransport.create(icLocation);
+		ReplicaTransport transport = ReplicaApacheHttpTransport.create(icLocation);
 		Agent agent = new AgentBuilder().transport(transport).build();
+		if (Boolean.parseBoolean(env.getProperty("ic.fetchRootKey", "false")))
+			agent.fetchRootKey();
 		
 		Map<Label,IDLType> applicationRecord = new TreeMap<Label,IDLType>();
 		applicationRecord.put(Label.createNamedLabel("id"), IDLType.createType(Type.NAT));

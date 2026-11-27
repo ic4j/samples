@@ -51,6 +51,8 @@ public class Main {
 
 		ReplicaTransport transport = ReplicaJavaHttpTransport.create(icLocation);
 		Agent agent = new AgentBuilder().transport(transport).build();
+		if (Boolean.parseBoolean(env.getProperty("ic.fetchRootKey", "false")))
+			agent.fetchRootKey();
 		
 		Map<Label,IDLType> applicationRecord = new TreeMap<Label,IDLType>();
 		applicationRecord.put(Label.createNamedLabel("id"), IDLType.createType(Type.NAT));

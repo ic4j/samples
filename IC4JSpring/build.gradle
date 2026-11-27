@@ -5,27 +5,29 @@ plugins {
 }
 
 group = 'org.ic4j.samples.spring'
-version = '0.7.1'
+version = '0.8.0'
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
+		languageVersion = JavaLanguageVersion.of(21)
 	}
 }
 
 repositories {
+	mavenLocal()
 	mavenCentral()
 }
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation('org.ic4j:ic4j-agent:0.7.1') {
+	implementation 'org.apache.httpcomponents.client5:httpclient5'
+    implementation('org.ic4j:ic4j-agent:0.8.5') {
         exclude group: 'org.slf4j', module: 'slf4j-simple'
     }
-     implementation('org.ic4j:ic4j-candid:0.7.1') {
+     implementation('org.ic4j:ic4j-candid:0.8.5') {
         exclude group: 'org.slf4j', module: 'slf4j-simple' 
     }
-	implementation 'org.ic4j:ic4j-spring:0.7.1'
+	implementation 'org.ic4j:ic4j-spring:0.8.5'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
